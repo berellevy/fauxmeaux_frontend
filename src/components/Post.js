@@ -1,7 +1,8 @@
 import React from 'react'
 
 
-function Post({text}) {
+function Post({post}) {
+    let { text } = post
     return (
         <li>
             <h5>Post</h5> 
