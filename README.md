@@ -1,4 +1,32 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# FauxMeaux
+
+## done
+
+
+
+## to do 
+
+- make some components
+- put redux in
+- connect to backend
+- use bootstrap
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## Available Scripts
 
