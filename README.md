@@ -1,16 +1,17 @@
 # FauxMeaux
 
 ## done
+- make some components
+- put redux in
+- connect to backend
 
 
 
 ## to do 
 
-- make some components
-- put redux in
-- connect to backend
+- routes
+- auth
 - use bootstrap
-
 
 
 

@@ -5,11 +5,6 @@ import { fetchPosts } from '../redux/actions'
 
 
 class Feed extends Component {
-    postsArray = [
-        "hello!!",
-        "byebye",
-        "wheredego?"
-    ]
 
     componentDidMount() {
         this.props.fetchPosts()
@@ -18,7 +13,6 @@ class Feed extends Component {
     render() {
         return (
             <div>
-                <h1>Feed</h1> 
                 <ul>
                     {this.posts()}
                 </ul>
