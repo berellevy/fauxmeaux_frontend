@@ -2,7 +2,9 @@ import { combineReducers } from 'redux'
 
 const defaultState = {
     posts: [],
-    user: null
+    user: {
+        loggedIn: false
+    }
 }
 
 const postsReducer = ( currentState = defaultState.posts, action ) => {
@@ -16,12 +18,17 @@ const postsReducer = ( currentState = defaultState.posts, action ) => {
 
 const userReducer = ( currentState = defaultState.user, action ) => {
     switch (action.type) {
-        case "LOGIN":
-            return action.payload
+        case "LOGIN_SUCCESS":
+            return { loggedIn: true, ...action.payload }
+        case "LOGIN_FAILURE":
+            console.log('problem');
+            return { loggedIn: false, error: "incorrect username or password"}
         default:
-            return null
+            return currentState
     }
 }
+
+
 
 
 export const rootReducer = combineReducers({
