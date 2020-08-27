@@ -1,10 +1,11 @@
 import { combineReducers } from 'redux'
 
 const defaultState = {
-    posts: []
+    posts: [],
+    user: null
 }
 
-const postsReducer = (currentState = defaultState.posts, action ) => {
+const postsReducer = ( currentState = defaultState.posts, action ) => {
     switch (action.type) {
         case "ADD_POSTS":
             return [...currentState, ...action.payload]
@@ -12,6 +13,18 @@ const postsReducer = (currentState = defaultState.posts, action ) => {
             return currentState
     }
 }
+
+const userReducer = ( currentState = defaultState.user, action ) => {
+    switch (action.type) {
+        case "LOGIN":
+            return action.payload
+        default:
+            return null
+    }
+}
+
+
 export const rootReducer = combineReducers({
-    posts: postsReducer
+    posts: postsReducer,
+    user: userReducer
 })
