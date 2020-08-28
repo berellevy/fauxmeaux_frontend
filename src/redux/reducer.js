@@ -21,8 +21,13 @@ const userReducer = ( currentState = defaultState.user, action ) => {
         case "LOGIN_SUCCESS":
             return { loggedIn: true, ...action.payload }
         case "LOGIN_FAILURE":
-            console.log('problem');
             return { loggedIn: false, error: "incorrect username or password"}
+        case "SIGNUP_SUCCESS":
+            return { loggedIn: true, ...action.payload }
+        case "SIGNUP_FAILURE":
+            return { loggedIn: false, errors: action.payload}
+        case "REGISTER_SUCCESS":
+            return { loggedIn: true, ...action.payload}
         default:
             return currentState
     }
@@ -31,7 +36,14 @@ const userReducer = ( currentState = defaultState.user, action ) => {
 
 
 
-export const rootReducer = combineReducers({
+const appReducer = combineReducers({
     posts: postsReducer,
     user: userReducer
 })
+
+export const rootReducer = (state, action) => {
+    if (action.type === "RESET_APP") {
+        return defaultState
+    }
+    return appReducer(state, action)
+}

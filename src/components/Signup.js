@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { NavLink, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { login } from '../redux/actions'
+import { signup } from '../redux/actions'
+
 
 
 class Signup extends Component {
@@ -9,6 +10,18 @@ class Signup extends Component {
     state = {
         username: "",
         password: ""
+    }
+
+    errorMessages = () => {
+        let errors = this.props.user.errors 
+        ? Object.entries(this.props.user.errors).map(fieldArr=> {
+            return fieldArr[1].map(message=> {
+                console.log(message);
+                return <p>{fieldArr[0]} {message}</p>
+        })
+        })
+        : <p><br/></p>
+        return errors
     }
 
     changeHandler = ( e ) => this.setState({ [e.target.name]: e.target.value })
@@ -43,6 +56,7 @@ class Signup extends Component {
                     />
                     <input type="submit" value="signup" />
                 </form>
+                {this.errorMessages()}
                 <NavLink to="/login">
                     Login
                 </NavLink>
@@ -54,11 +68,11 @@ class Signup extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => {
-    return { submitHandler: (user) => dispatch(login(user))}
+    return { submitHandler: (user) => dispatch(signup(user))}
 }
 
 const mapStateToProps = (state) => {
-    return { user: state }
+    return { user: state.user }
 }
 
 

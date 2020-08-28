@@ -1,30 +1,42 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './App.css';
-import Feed from './containers/Feed';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import Navbar from './components/Navbar';
 import Login from './components/Login';
-import { PrivateRoute, loggedIn } from './auth/Auth';
+import { PrivateRoute } from './auth/Auth';
 import Signup from './components/Signup';
+import ProtectedApp from './components/ProtectedApp';
+import { connect } from 'react-redux';
 
-function App() {
-  return (
-    <div className="App">
-      
-    
-      <Navbar />
-      
-      <Switch>
-        <Route path="/login">
-          { loggedIn() ? <Redirect to="/"/> : <Login /> }
-        </Route>
-        <Route path="/signup">
-          { loggedIn() ? <Redirect to="/"/> : <Signup /> }
-        </Route>
-        <PrivateRoute path="/" component={Feed}/>
-      </Switch>
-    </div>
-  );
+class App extends Component {
+
+  componentDidMount() {
+
+  }
+  
+  render () {
+    return (
+      <div className="App">
+        <Switch>
+          <Route path="/login">
+            <Login />
+          </Route>
+          <Route path="/signup">
+            <Signup /> 
+          </Route>
+          <Route path="/" component={ProtectedApp}/>
+        </Switch>
+      </div>
+    );
+  }
+  
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return { user: state.user }
+}
+
+
+
+
+
+export default connect(mapStateToProps)(App) ;

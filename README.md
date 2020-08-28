@@ -4,13 +4,16 @@
 - make some components
 - put redux in
 - connect to backend
+- routes
+    - login
 
 
 
 ## to do 
-
-- routes
 - auth
+    - signup
+    - logout
+
 - use bootstrap
 
 
