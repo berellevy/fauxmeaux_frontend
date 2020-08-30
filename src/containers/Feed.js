@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Post from '../components/Post'
 import { connect } from 'react-redux'
 import { fetchPosts } from '../redux/actions'
+import { Col } from 'react-bootstrap'
 
 
 class Feed extends Component {
@@ -12,11 +13,9 @@ class Feed extends Component {
     posts = () => this.props.posts.map(post => <Post post={post} />)
     render() {
         return (
-            <div>
-                <ul>
-                    {this.posts()}
-                </ul>
-            </div>
+            <Col>
+                {this.posts()}
+            </Col>
         )
 
     }

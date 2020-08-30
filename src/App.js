@@ -1,17 +1,12 @@
 import React, { Component } from 'react';
 import './App.css';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import Login from './components/Login';
-import { PrivateRoute } from './auth/Auth';
 import Signup from './components/Signup';
 import ProtectedApp from './components/ProtectedApp';
 import { connect } from 'react-redux';
 
 class App extends Component {
-
-  componentDidMount() {
-
-  }
   
   render () {
     return (
@@ -34,9 +29,5 @@ class App extends Component {
 const mapStateToProps = (state) => {
   return { user: state.user }
 }
-
-
-
-
 
 export default connect(mapStateToProps)(App) ;

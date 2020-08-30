@@ -1,8 +1,10 @@
 import React from 'react'
 import { Switch, Route, Redirect } from 'react-router-dom'
 import Feed from '../containers/Feed'
-import Navbar from './Navbar'
+import NavBar from './NavBar'
 import { connect } from 'react-redux'
+import { Container } from 'react-bootstrap'
+import AddPost from './AddPost'
 
 
 function ProtectedApp(props) {
@@ -10,14 +12,20 @@ function ProtectedApp(props) {
     return (
         !loggedIn
         ? <Redirect to="/login" />
-       : <>
-            <Navbar />
+        : <Container fluid="sm">
+            <NavBar />
             <Switch>
+                <Route path="posts/:id">
+
+                </Route>
+                <Route path="/post">
+                    <AddPost />
+                </Route>
                 <Route path="/">
                     <Feed />
                 </Route>
             </Switch>
-        </>
+            </Container>
     )
 }
 

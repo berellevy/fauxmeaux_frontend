@@ -82,6 +82,18 @@ export const register = () => {
     }
 } 
 
+export const submitPost = (post) => {
+    return (dispatch) => {
+        fetch(posts_url, {
+            method: "POST",
+            headers: headers(),
+            body: JSON.stringify(post)
+        })
+        .then(response=>response.json())
+        .then(console.log)
+    }
+}
+
 export const logout = () => {
     return {type: "RESET_APP"}
 } 

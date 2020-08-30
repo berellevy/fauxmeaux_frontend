@@ -5,14 +5,14 @@
 - put redux in
 - connect to backend
 - routes
+- auth
+    - signup
+    - logout
     - login
 
 
 
 ## to do 
-- auth
-    - signup
-    - logout
 
 - use bootstrap
 
