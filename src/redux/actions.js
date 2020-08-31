@@ -1,12 +1,14 @@
 import { authToken } from "../auth/Auth"
+import { Redirect } from "react-router-dom"
 
-const base_url = "http://localhost:4000/api/v1"
-const posts_url = base_url + "/posts"
+export const base_url = "http://localhost:4000/api/v1"
+export const posts_url = base_url + "/posts"
 const login_url = base_url + "/login"
-const users_url = base_url + "/users"
+export const users_url = base_url + "/users"
 const profile_url = base_url + "/profile"
+const user_posts_url = (username) => base_url + "/" + username + "/posts" 
 
-const headers = () => {
+export const headers = () => {
     const headers = {
         "content-type": "application/json",
         "accept": "application/json"
@@ -28,6 +30,15 @@ export const fetchPosts = () => {
     }
 }
 
+export const fetchUserPosts = (username) => {
+    return (dispatch) => {
+        fetch(user_posts_url(username), {headers: headers()})
+        .then(response=>response.json())
+        .then(data=>{
+            dispatch({type: "ADD_USER_POSTS", payload: data})
+        })
+    }
+}
 
 
 export const login = (credentials) => {
@@ -90,7 +101,9 @@ export const submitPost = (post) => {
             body: JSON.stringify(post)
         })
         .then(response=>response.json())
-        .then(console.log)
+        .then(post=> {
+            let { id } = post
+        })
     }
 }
 

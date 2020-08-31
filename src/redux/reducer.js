@@ -4,13 +4,14 @@ const defaultState = {
     posts: [],
     user: {
         loggedIn: false
-    }
+    },
+    profilePosts: []
 }
 
 const postsReducer = ( currentState = defaultState.posts, action ) => {
     switch (action.type) {
         case "ADD_POSTS":
-            return [...currentState, ...action.payload]
+            return action.payload
         default:
             return currentState
     }
@@ -33,12 +34,22 @@ const userReducer = ( currentState = defaultState.user, action ) => {
     }
 }
 
+const profilePostsReducer = ( currentState = defaultState.profilePosts, action) => {
+    switch (action.type) {
+        case "ADD_USER_POSTS":
+            return action.payload
+        default:
+            return currentState
+    }
+}
+
 
 
 
 const appReducer = combineReducers({
     posts: postsReducer,
-    user: userReducer
+    user: userReducer,
+    profilePosts: profilePostsReducer
 })
 
 export const rootReducer = (state, action) => {

@@ -2,7 +2,9 @@ import React, { Component } from 'react'
 import { Col, Row, Card, Form, Button } from 'react-bootstrap'
 import validURL from '../helpers/validUrl'
 import { connect } from 'react-redux'
-import { submitPost } from '../redux/actions'
+import { submitPost, posts_url } from '../redux/actions'
+import { Redirect } from 'react-router-dom'
+import { headers } from '../redux/actions'
 
 
 class AddPost extends Component {
@@ -14,7 +16,8 @@ class AddPost extends Component {
         errors: {
             imgUrl: null,
             text: null
-        }
+        },
+        newPostId: null
     }
 
 
@@ -54,13 +57,26 @@ class AddPost extends Component {
         let { text, imgUrl } = this.state
         let { id } = this.props.user
         let post = { text: text, img: imgUrl }
-        this.props.submitPost(post)
+        // this.props.submitPost(post) this is using an action.
+        fetch(posts_url, {
+            method: "POST",
+            headers: headers(),
+            body: JSON.stringify(post)
+        })
+        .then(response=>response.json())
+        .then(post=> {
+            let { id } = post
+            console.log(post);
+            this.setState({newPostId: id})
+        })
 
     }
 
     render() {
         return (
-            <Row>
+            this.state.newPostId
+            ? <Redirect to={"/posts/" + this.state.newPostId} />
+            : <Row>
                 <Col sm={3}></Col>
                 <Col>
                     <Card>
