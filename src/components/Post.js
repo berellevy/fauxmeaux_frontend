@@ -23,7 +23,6 @@ function Post({post}) {
     }
     return (
         <Row style={rowStyle}>
-            <Col sm={3}/>
             <Col>
                 <Card>
                     {userHeader()}
@@ -44,7 +43,6 @@ function Post({post}) {
                     
                 </Card>
             </Col>
-            <Col sm={3}/>
         </Row>
     )
 }

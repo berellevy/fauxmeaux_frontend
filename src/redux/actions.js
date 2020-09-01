@@ -9,6 +9,8 @@ const profile_url = base_url + "/profile"
 const comments_url = base_url + "/comments"
 const user_posts_url = (username) => base_url + "/" + username + "/posts" 
 
+const search_url = base_url + "/search"
+
 export const headers = () => {
     const headers = {
         "content-type": "application/json",
@@ -118,6 +120,29 @@ export const submitComment = (comment) => {
         .then(response=>response.json())
         .then(data => {
             dispatch({type: "ADD_COMMENT", payload: data})
+        })
+    }
+}
+
+export const submitSearch = (query) => {
+    return (dispatch) => {
+        fetch(search_url, {
+            method: "POST",
+            headers: headers(),
+            body: JSON.stringify(query)
+        })
+        .then(response=>response.json())
+        .then(data=>dispatch({type: "ADD_USERS", payload: data}))
+    }
+}
+
+export const getFollows = (username_and_type) => {
+    return (dispatch) => {
+        let url = base_url + "/" + username_and_type
+        fetch(url, {headers: headers()})
+        .then(response=>response.json())
+        .then(data=>{
+            dispatch({type: "ADD_USERS", payload: data})
         })
     }
 }

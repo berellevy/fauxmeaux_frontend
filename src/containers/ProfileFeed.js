@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Post from '../components/Post'
 import { connect } from 'react-redux'
 import { fetchUserPosts } from '../redux/actions'
-import { Col } from 'react-bootstrap'
+import { Col, Row } from 'react-bootstrap'
 
 
 class Profile extends Component {
@@ -14,9 +14,14 @@ class Profile extends Component {
     posts = () => this.props.posts.map(post => <Post post={post} />)
     render() {
         return (
-            <Col>
-                {this.posts()}
-            </Col>
+                <Row>
+                    <Col sm={2}/>
+                    <Col>
+                        {this.posts()}
+                    </Col>
+                    <Col sm={2}/>
+                </Row>
+                
         )
 
     }

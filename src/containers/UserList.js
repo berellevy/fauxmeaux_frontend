@@ -2,20 +2,13 @@ import React, { Component } from 'react'
 import { headers, users_url } from '../redux/actions'
 import { Nav, Row } from 'react-bootstrap'
 import { NavLink } from 'react-router-dom'
+import { connect } from 'react-redux'
 
 
 class UserList extends Component{
 
-    state = { users: [] }
-
-    componentDidMount() {
-        fetch(users_url, { headers: headers() })
-        .then(response=>response.json())
-        .then(data=>this.setState({users: data }))
-    }
-
     userlinksList = () => {
-        return this.state.users.map(u=>{
+        return this.props.users.map(u=>{
             return (
                 <Row>
                     <NavLink to={"/"+ u.username} >
@@ -27,11 +20,10 @@ class UserList extends Component{
     }
 
     render() {
-        console.log(this.state);
         return (
             <>
                 
-                <h1>All Users</h1>
+                <h1>Users</h1>
                 {this.userlinksList()}
 
 
@@ -40,4 +32,8 @@ class UserList extends Component{
     }
 }
 
-export default UserList
+const mapStateToProps = (state) => {
+    return { users: state.users}
+}
+
+export default connect(mapStateToProps)(UserList)

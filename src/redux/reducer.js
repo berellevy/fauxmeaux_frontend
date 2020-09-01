@@ -5,7 +5,8 @@ const defaultState = {
     user: {
         loggedIn: false
     },
-    profilePosts: []
+    profilePosts: [],
+    users: [] 
 }
 
 const postsReducer = ( currentState = defaultState.posts, action ) => {
@@ -50,13 +51,24 @@ const profilePostsReducer = ( currentState = defaultState.profilePosts, action) 
     }
 }
 
+const usersReducer = (currentState = defaultState.users, action) => {
+    let { type, payload } = action
+    switch (type) {
+        case "ADD_USERS":
+            return payload
+        default:
+            return currentState
+    }
+}
+
 
 
 
 const appReducer = combineReducers({
     posts: postsReducer,
     user: userReducer,
-    profilePosts: profilePostsReducer
+    profilePosts: profilePostsReducer,
+    users: usersReducer
 })
 
 export const rootReducer = (state, action) => {

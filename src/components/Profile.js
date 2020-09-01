@@ -4,13 +4,15 @@ import defaultImg from '../helpers/defaultImg'
 import { connect } from 'react-redux'
 import ProfileFeed from '../containers/ProfileFeed'
 import { Component } from 'react'
-import { base_url, headers } from '../redux/actions'
+import { base_url, headers, getFollows } from '../redux/actions'
+import { NavLink, withRouter } from 'react-router-dom'
+import { compose } from 'redux'
 
 
 
 const postsContainerStyle = {
-    marginTop: "1em",
-    borderTop: "1px solid lightgrey"
+    marginTop: "3em",
+    borderTop: "2px solid lightgrey"
 
 }
 
@@ -22,7 +24,7 @@ class Profile extends Component {
         user: {}
     }
 
-    isCurrentUser = () => !this.props.match
+    isCurrentUser = () => !this.props.match.params.username
 
     followButton = () => {
         return (
@@ -66,13 +68,19 @@ class Profile extends Component {
         })
     }
 
+    handleFollowsClick = (e, type) => {
+        e.preventDefault()
+        let username_and_type = this.username() + "/" + type
+        this.props.getFollows(username_and_type)
+        this.props.history.push("/users")
+    }
+
 
     
     
     
     render () {
-        console.log(this.state.user);
-        let { name, username, avatar, bio, posts_qty, followers_qty, following_qty, follows_current_user } = this.state.user
+        let { name, username, avatar, bio, posts_qty, followers_qty, following_qty, follows_current_user, is_current_user } = this.state.user
         return (
             <>
                 <Row id="user-headers">
@@ -90,14 +98,14 @@ class Profile extends Component {
                             </Col>
                             <Col>
                                 {
-                                    this.isCurrentUser()
+                                    is_current_user
                                     ? null
                                     : this.followButton()
                                 }
                             </Col>
                             <Col>
                             {
-                                    this.isCurrentUser()
+                                    is_current_user
                                     ? null
                                     : follows_current_user
                                         ? <h3>Follows you</h3>
@@ -111,10 +119,15 @@ class Profile extends Component {
                                 <h4>{posts_qty} Posts</h4>
                             </Col>
                             <Col>
-                                <h4>{followers_qty} Followers</h4>
+                                <NavLink to="#" onClick={(e) =>this.handleFollowsClick(e,"followers")}>
+                                    <h4>{followers_qty} Followers</h4>
+                                </NavLink>
+
                             </Col>
                             <Col>
+                                <NavLink to="#" onClick={(e) =>this.handleFollowsClick(e, "followees")}>
                                 <h4>{following_qty} Following</h4>
+                                </NavLink>
                             </Col>
                         </Row>
     
@@ -124,13 +137,10 @@ class Profile extends Component {
     
                 <Row id="user-posts" style={postsContainerStyle}>
                     <Row id="posts-headers">
-                        <h1 className="text-center">
-                            Posts
-                        </h1>
+                        <h1>Posts</h1>
                     </Row>
-                    <Row>
-                        <ProfileFeed username={this.username()}/>
-                    </Row>
+                    <ProfileFeed username={this.username()}/>
+                        
                 </Row>
                 
             </>
@@ -146,4 +156,11 @@ const mapStateToProps = (state, ownProps) => {
     }
 }
 
-export default connect(mapStateToProps)(Profile)
+const mapDispatchToProps = (dispatch) => {
+    return { getFollows: (username_and_type) => dispatch(getFollows(username_and_type))}
+}
+
+export default compose(
+    withRouter,
+    connect(mapStateToProps, mapDispatchToProps)
+)(Profile)
