@@ -3,6 +3,7 @@ import { Row, Col, Card, ListGroup, ListGroupItem } from 'react-bootstrap'
 import PostCommentsContainer from '../containers/PostCommentsContainer';
 import { NavLink } from 'react-router-dom';
 import { posts_url } from '../redux/actions';
+import AddComment from './AddComment';
 
 const rowStyle = {
     marginTop: "3em"
@@ -10,12 +11,12 @@ const rowStyle = {
 
 
 function Post({post}) {
-    let { text, img, user, id} = post
+    let { text, img, user, id, comments} = post
     let imgSrc = () => img ? img : "https://placeholder.pics/svg/500/DEDEDE/555555/no%20image"
 
     let userHeader = () => {
         return (
-            !post.user 
+            ! post.user 
             ? null
             : <Card.Header>{user.username}</Card.Header>
         )
@@ -34,7 +35,10 @@ function Post({post}) {
                     </Card.Body>
                         <ListGroup className="list-group-flush">
                             <ListGroupItem>
-                                <PostCommentsContainer />
+                                <PostCommentsContainer comments={comments} />
+                            </ListGroupItem>
+                            <ListGroupItem>
+                                <AddComment post_id={id}/>
                             </ListGroupItem>
                         </ListGroup>
                     

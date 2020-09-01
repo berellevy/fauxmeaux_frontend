@@ -6,6 +6,7 @@ export const posts_url = base_url + "/posts"
 const login_url = base_url + "/login"
 export const users_url = base_url + "/users"
 const profile_url = base_url + "/profile"
+const comments_url = base_url + "/comments"
 const user_posts_url = (username) => base_url + "/" + username + "/posts" 
 
 export const headers = () => {
@@ -103,6 +104,20 @@ export const submitPost = (post) => {
         .then(response=>response.json())
         .then(post=> {
             let { id } = post
+        })
+    }
+}
+
+export const submitComment = (comment) => {
+    return (dispatch) => {
+        fetch(comments_url, {
+            method: "POST",
+            headers: headers(),
+            body: JSON.stringify(comment)
+        })
+        .then(response=>response.json())
+        .then(data => {
+            dispatch({type: "ADD_COMMENT", payload: data})
         })
     }
 }

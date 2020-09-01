@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import Comment from '../components/Comment'
+import AddComment from '../components/AddComment'
 
 
 class PostCommentsContainer extends Component {
@@ -6,8 +8,19 @@ class PostCommentsContainer extends Component {
     state = {
         expanded: false
     }
+
+    comments = () => {
+        return this.props.comments.map( comment => <Comment comment={comment}/>)
+    }
+
     render() {
-        return <h6>PostCommentsContainer</h6> 
+        
+
+        return (
+            <div>
+                {this.comments()}
+            </div>
+        )
     }
 }
 

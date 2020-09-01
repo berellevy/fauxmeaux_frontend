@@ -9,9 +9,16 @@ const defaultState = {
 }
 
 const postsReducer = ( currentState = defaultState.posts, action ) => {
-    switch (action.type) {
+    let { type, payload } = action
+    switch (type) {
         case "ADD_POSTS":
-            return action.payload
+            return payload
+        case "ADD_COMMENT":
+            let newPostId = payload.post_id 
+            let newState = [...currentState]
+            let newPost = newState.find( post => post.id === newPostId )
+            newPost.comments = [payload, ...newPost.comments]
+            return newState
         default:
             return currentState
     }
