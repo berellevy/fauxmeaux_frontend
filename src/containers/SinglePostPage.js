@@ -2,6 +2,7 @@ import React from 'react'
 import Post from '../components/Post'
 import { Component } from 'react'
 import { posts_url, headers } from '../redux/actions'
+import View from '../components/View'
 
 
 class SinglePostPage extends Component {
@@ -21,7 +22,7 @@ class SinglePostPage extends Component {
     render () {
         return (
             this.state.view
-            ? <Post view={this.state.view} />
+            ? <View view={this.state.view} />
             : null
         )
     }

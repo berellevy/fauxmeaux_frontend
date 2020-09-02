@@ -3,22 +3,22 @@ import Post from '../components/Post'
 import { connect } from 'react-redux'
 import { fetchUserPosts } from '../redux/actions'
 import { Col, Row } from 'react-bootstrap'
+import View from '../components/View'
 
 
 class Profile extends Component {
-
     componentDidMount() {
         let { username } = this.props
         this.props.fetchUserPosts(username)
     }
 
-    posts = () => this.props.views.map(view => <Post view={view} />)
+    views = () => this.props.views.map(view => <View view={view} />)
     render() {
         return (
                 <Row>
                     <Col sm={2}/>
                     <Col>
-                        {this.posts()}
+                        {this.views()}
                     </Col>
                     <Col sm={2}/>
                 </Row>
