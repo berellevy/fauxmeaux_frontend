@@ -14,11 +14,11 @@ class Feed extends Component {
     render() {
         return (
             <Row>
-                <Col sm={2}/>
+                <Col sm={3}/>
                 <Col>
                     {this.posts()}
                 </Col>
-                <Col sm={2} />
+                <Col sm={3} />
             </Row>
         )
 

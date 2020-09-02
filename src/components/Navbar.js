@@ -27,28 +27,23 @@ function NavBar() {
             </Nav>
             </Col>
 
-            <Col >
-
-            <NavLink to="/users">
-                all users
-            </NavLink>
-
+            <Col align="right" >
 
             <Button variant="link">
             <NavLink to="/">
                 <HomeIcon/>
             </NavLink>
             </Button>
-          
-            <Button variant="link">
-            <NavLink to="/profile">
-                <ProfileIcon/>
-            </NavLink>
-            </Button>
 
             <Button variant="link">
             <NavLink to="/post">
                 <CameraIcon/>
+            </NavLink>
+            </Button>
+          
+            <Button variant="link">
+            <NavLink to="/profile">
+                <ProfileIcon/>
             </NavLink>
             </Button>
 

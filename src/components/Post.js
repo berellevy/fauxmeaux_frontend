@@ -4,6 +4,7 @@ import PostCommentsContainer from '../containers/PostCommentsContainer';
 import { NavLink } from 'react-router-dom';
 import { posts_url } from '../redux/actions';
 import AddComment from './AddComment';
+import getTimeAgo from '../helpers/getTimeAgo'
 
 const rowStyle = {
     marginTop: "3em"
@@ -11,7 +12,7 @@ const rowStyle = {
 
 
 function Post({post}) {
-    let { text, img, user, id, comments} = post
+    let { text, img, user, id, comments, updated_at} = post
     let imgSrc = () => img ? img : "https://placeholder.pics/svg/500/DEDEDE/555555/no%20image"
 
     let userHeader = () => {
