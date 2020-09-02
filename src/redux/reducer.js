@@ -15,9 +15,10 @@ const postsReducer = ( currentState = defaultState.posts, action ) => {
         case "ADD_POSTS":
             return payload
         case "ADD_COMMENT":
+            console.log(currentState);
             let newPostId = payload.post_id 
             let newState = [...currentState]
-            let newPost = newState.find( post => post.id === newPostId )
+            let newPost = newState.find( view => view.post.id === newPostId ).post
             newPost.comments = [payload, ...newPost.comments]
             return newState
         default:

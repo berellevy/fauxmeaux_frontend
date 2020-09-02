@@ -7,21 +7,21 @@ import { posts_url, headers } from '../redux/actions'
 class SinglePostPage extends Component {
 
     state = {
-        post: null
+        view: null
     }
     
     componentDidMount() {
         fetch(posts_url + "/" +this.props.match.params.id, {headers: headers()})
         .then(response => response.json())
-        .then(data => this.setState({post: data}))
+        .then(data => this.setState({view: data}))
         .catch(error => console.log(error))
         
     }
 
     render () {
         return (
-            this.state.post
-            ? <Post post={this.state.post} />
+            this.state.view
+            ? <Post view={this.state.view} />
             : null
         )
     }

@@ -11,7 +11,8 @@ class Profile extends Component {
         let { username } = this.props
         this.props.fetchUserPosts(username)
     }
-    posts = () => this.props.posts.map(post => <Post post={post} />)
+
+    posts = () => this.props.views.map(view => <Post view={view} />)
     render() {
         return (
                 <Row>
@@ -28,7 +29,7 @@ class Profile extends Component {
 }
 
 const mapStateToProps = (state) => {
-    return {posts: state.profilePosts}
+    return {views: state.profilePosts}
 }
 
 const mapDispatchToProps = (dispatch) => {

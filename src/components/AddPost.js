@@ -57,15 +57,14 @@ class AddPost extends Component {
         let { text, imgUrl } = this.state
         let { id } = this.props.user
         let post = { text: text, img: imgUrl }
-        // this.props.submitPost(post) this is using an action.
         fetch(posts_url, {
             method: "POST",
             headers: headers(),
             body: JSON.stringify(post)
         })
         .then(response=>response.json())
-        .then(post=> {
-            let { id } = post
+        .then(view=> {
+            let { id } = view.post
             console.log(post);
             this.setState({newPostId: id})
         })

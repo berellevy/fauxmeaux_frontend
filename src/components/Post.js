@@ -11,7 +11,8 @@ const rowStyle = {
 }
 
 
-function Post({post}) {
+function Post({view}) {
+    let { post } = view
     let { text, img, user, id, comments, updated_at} = post
     let imgSrc = () => img ? img : "https://placeholder.pics/svg/500/DEDEDE/555555/no%20image"
 

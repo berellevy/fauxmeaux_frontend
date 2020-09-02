@@ -10,7 +10,7 @@ class Feed extends Component {
     componentDidMount() {
         this.props.fetchPosts()
     }
-    posts = () => this.props.posts.map(post => <Post post={post} />)
+    posts = () => this.props.views.map((view) => <Post view={view} />)
     render() {
         return (
             <Row>
@@ -26,7 +26,7 @@ class Feed extends Component {
 }
 
 const mapStateToProps = (state) => {
-    return {posts: state.posts}
+    return {views: state.posts}
 }
 
 const mapDispatchToProps = (dispatch) => {
