@@ -33,7 +33,7 @@ class AddComment extends Component {
                         />
                     </Col>
 
-                    <Button variant light type="submit">
+                    <Button variant="light" type="submit">
                         submit
                     </Button>
                 </Row>

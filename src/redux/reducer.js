@@ -20,6 +20,10 @@ const postsReducer = ( currentState = defaultState.posts, action ) => {
             let newPost = newState.find( view => view.post.id === newPostId ).post
             newPost.comments = [payload, ...newPost.comments]
             return newState
+        case "SHOW_AD":
+            let updatedView = [...currentState].find( view => view.id === payload )
+            updatedView.locked = "ad"
+            return currentState.map( view => view.id === payload ? updatedView : view )
         case "UNLOCK_VIEW":
             let newViewId = payload.id
             return currentState.map(view=>view.id === newViewId ? payload : view)

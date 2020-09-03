@@ -11,13 +11,13 @@ class Feed extends Component {
     componentDidMount() {
         this.props.fetchPosts()
     }
-    views = () => this.props.views.map((view) => <View view={view} />)
+
     render() {
         return (
             <Row>
                 <Col sm={3}/>
                 <Col>
-                    {this.views()}
+                    {this.props.views.map((view) => <View view={view} />)}
                 </Col>
                 <Col sm={3} />
             </Row>

@@ -4,10 +4,11 @@ import { Card, Row, Col } from 'react-bootstrap'
 import pluralize from 'pluralize'
 import { unlockView } from '../redux/actions';
 
-function LockCard({ metrics, unlockView }) {
+function LockCard({ metrics, unlockView, showAd }) {
     
     let clickHandler = (e) => {
         let { view_id } = metrics
+        showAd(view_id)
         unlockView(view_id)
     }
 
@@ -28,7 +29,10 @@ function LockCard({ metrics, unlockView }) {
 }
 
 const mapDispatchToProps = (dispatch) => {
-    return { unlockView: (view_id) => dispatch(unlockView(view_id))}
+    return {
+        unlockView: (view_id) => dispatch(unlockView(view_id)),
+        showAd: (view_id) => dispatch({type: "SHOW_AD", payload: view_id})
+    }
 }
 
 export default connect(null, mapDispatchToProps)(LockCard)

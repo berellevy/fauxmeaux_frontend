@@ -153,7 +153,7 @@ export const unlockView = (view_id) => {
         fetch( views_url + "/" + view_id, {
             method: 'PATCH',
             headers: headers(),
-            body: JSON.stringify({locked: false})
+            body: JSON.stringify({locked: "ad"})
         })
         .then(response=>response.json())
         .then(data => {
