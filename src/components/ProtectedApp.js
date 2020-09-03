@@ -13,6 +13,7 @@ import UserList from '../containers/UserList'
 
 function ProtectedApp(props) {
     let {loggedIn} = props.user
+    console.log(loggedIn);
     return (
         !loggedIn
         ? <Redirect to="/login" />

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Row, Col } from 'react-bootstrap'
 import Post from './Post'
 import LockCard from './LockCard'
+import pluralize from 'pluralize'
 
 const rowStyle = {
     marginTop: "3em"
@@ -11,10 +12,10 @@ const rowStyle = {
 class View extends Component {
 
     display = () => {
-        let { post, locked } = this.props.view
+        let { post, locked, metrics } = this.props.view
         return (
             locked  
-                ? <LockCard/>
+                ? <LockCard metrics={metrics}/>
                 : <Post post={post} />
         )
     }
@@ -26,8 +27,6 @@ class View extends Component {
                     {this.display()}
                 </Col>
             </Row>
-            
-            
         )
     }
 }

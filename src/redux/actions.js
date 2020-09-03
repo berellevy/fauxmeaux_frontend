@@ -8,6 +8,7 @@ export const users_url = base_url + "/users"
 const profile_url = base_url + "/profile"
 const comments_url = base_url + "/comments"
 const user_posts_url = (username) => base_url + "/" + username + "/posts" 
+const views_url = base_url + "/views"
 
 const search_url = base_url + "/search"
 
@@ -143,6 +144,21 @@ export const getFollows = (username_and_type) => {
         .then(response=>response.json())
         .then(data=>{
             dispatch({type: "ADD_USERS", payload: data})
+        })
+    }
+}
+
+export const unlockView = (view_id) => {
+    return (dispatch) => {
+        fetch( views_url + "/" + view_id, {
+            method: 'PATCH',
+            headers: headers(),
+            body: JSON.stringify({locked: false})
+        })
+        .then(response=>response.json())
+        .then(data => {
+            console.log(data);
+            dispatch({type: "UNLOCK_VIEW", payload: data})
         })
     }
 }

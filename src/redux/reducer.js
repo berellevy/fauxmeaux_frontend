@@ -15,12 +15,14 @@ const postsReducer = ( currentState = defaultState.posts, action ) => {
         case "ADD_POSTS":
             return payload
         case "ADD_COMMENT":
-            console.log(currentState);
             let newPostId = payload.post_id 
             let newState = [...currentState]
             let newPost = newState.find( view => view.post.id === newPostId ).post
             newPost.comments = [payload, ...newPost.comments]
             return newState
+        case "UNLOCK_VIEW":
+            let newViewId = payload.id
+            return currentState.map(view=>view.id === newViewId ? payload : view)
         default:
             return currentState
     }
