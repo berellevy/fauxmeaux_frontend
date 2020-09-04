@@ -6,12 +6,13 @@ import pluralize from 'pluralize'
 import AdCard from './AdCard'
 import ReactCSSTransitionReplace from 'react-css-transition-replace'
 
+
 const rowStyle = {
     marginTop: "3em"
 }
 
 const cardStyle = {
-    webkitTansition: "all 0.5s",
+
     transition: "0.4s"
 }
 
@@ -28,27 +29,23 @@ class View extends Component {
             case "ad":
                 return <AdCard key={2} view_id={view.id} ad={view.ad} />
             case "unlocked":
-                return <Post key={3} post={view.post} />
+                return <Post
+                    key={3} 
+                    post={view.post} 
+                    view={view}
+
+                />
         }
     }
 
-
-
     render() {
+
         return (
+
             <Row style={rowStyle}>
                 <Col>
                     <Card className="text-left" style={cardStyle} >
-                        {/* <ReactCSSTransitionReplace
-                            transitionName="cross-fade"
-                            // style={{transition: "height 1s ease-in-out 1s"}}
-                            transitionEnterTimeout={1000} 
-                            transitionLeaveTimeout={1000}
-                        > */}
-
-                            {this.display()}
-                        {/* </ReactCSSTransitionReplace> */}
-
+                        {this.display()}
                     </Card>
                 </Col>
             </Row>

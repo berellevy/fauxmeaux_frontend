@@ -150,7 +150,6 @@ export const getFollows = (username_and_type) => {
 
 export const unlockView = (view_id) => {
     return (dispatch) => {
-        console.log(view_id);
         fetch( views_url + "/" + view_id, {
             method: 'PATCH',
             headers: headers(),
@@ -158,7 +157,6 @@ export const unlockView = (view_id) => {
         })
         .then(response=>response.json())
         .then(data => {
-            console.log(data);
             dispatch({type: "UNLOCK_VIEW", payload: data})
         })
     }
