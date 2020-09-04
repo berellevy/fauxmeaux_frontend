@@ -6,6 +6,7 @@ import { Col, Row } from 'react-bootstrap'
 import View from '../components/View'
 
 
+
 class Profile extends Component {
     componentDidMount() {
         let { username } = this.props
@@ -29,7 +30,7 @@ class Profile extends Component {
 }
 
 const mapStateToProps = (state) => {
-    return {views: state.profilePosts}
+    return {views: state.posts}
 }
 
 const mapDispatchToProps = (dispatch) => {

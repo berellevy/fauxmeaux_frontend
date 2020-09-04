@@ -16,7 +16,7 @@ function AdCard({ad, view_id, showPost}) {
     }
 
     return (
-        <>
+        <span>
             <Card.Header bg="primary" as="h4" >
                 Ad
             </Card.Header>
@@ -24,7 +24,7 @@ function AdCard({ad, view_id, showPost}) {
             <ListGroupItem>
                 Visit <Card.Link href="www.logo.com">lego.com</Card.Link>
             </ListGroupItem>
-        </>
+        </span>
     ) 
 }
 

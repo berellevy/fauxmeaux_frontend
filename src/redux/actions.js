@@ -39,7 +39,7 @@ export const fetchUserPosts = (username) => {
         fetch(user_posts_url(username), {headers: headers()})
         .then(response=>response.json())
         .then(data=>{
-            dispatch({type: "ADD_USER_POSTS", payload: data})
+            dispatch({type: "ADD_POSTS", payload: data})
         })
     }
 }

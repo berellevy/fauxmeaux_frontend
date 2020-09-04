@@ -14,7 +14,7 @@ function LockCard({ metrics, unlockView, showAd }) {
 
     let { comments, views, user } = metrics
     return (
-        <>
+        <span>
             <Card.Header>
                 {user.username}
             </Card.Header>
@@ -22,7 +22,7 @@ function LockCard({ metrics, unlockView, showAd }) {
             
                 {!comments ? null : <Card.Text>{pluralize("comment", comments, true)}</Card.Text> }
                 {!views ? null : <Card.Text>{pluralize("view", views, true)}</Card.Text> }
-        </>  
+        </span>  
         
     ) 
 }

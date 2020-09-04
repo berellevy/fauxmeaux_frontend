@@ -36,6 +36,20 @@ const postsReducer = ( currentState = defaultState.posts, action ) => {
     }
 }
 
+const profilePostsReducer = ( currentState = defaultState.profilePosts, action) => {
+    let { type, payload } = action
+    switch (type) {
+        case "ADD_USER_POSTS":
+            return action.payload
+        case "SHOW_PROFILE_AD":
+            let updatedView = [...currentState].find( view => view.id === payload )
+            updatedView.locked = "ad"
+            return currentState.map( view => view.id === payload ? updatedView : view )
+        default:
+            return currentState
+    }
+}
+
 const userReducer = ( currentState = defaultState.user, action ) => {
     switch (action.type) {
         case "LOGIN_SUCCESS":
@@ -48,15 +62,6 @@ const userReducer = ( currentState = defaultState.user, action ) => {
             return { loggedIn: false, errors: action.payload}
         case "REGISTER_SUCCESS":
             return { loggedIn: true, ...action.payload}
-        default:
-            return currentState
-    }
-}
-
-const profilePostsReducer = ( currentState = defaultState.profilePosts, action) => {
-    switch (action.type) {
-        case "ADD_USER_POSTS":
-            return action.payload
         default:
             return currentState
     }
