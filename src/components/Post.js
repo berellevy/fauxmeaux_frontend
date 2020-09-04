@@ -22,7 +22,7 @@ function Post({post}) {
     }
     return (
         
-        <Card>
+        <>
             {userHeader()}
             <NavLink to={"/posts/" + id} >
                 <Card.Img src={imgSrc()}/>
@@ -38,7 +38,7 @@ function Post({post}) {
                     <AddComment post_id={id}/>
                 </ListGroupItem>
             </ListGroup>
-        </Card>
+        </>
     )
 }
 

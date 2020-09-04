@@ -27,6 +27,10 @@ const postsReducer = ( currentState = defaultState.posts, action ) => {
         case "UNLOCK_VIEW":
             let newViewId = payload.id
             return currentState.map(view=>view.id === newViewId ? payload : view)
+        case "SHOW_POST":
+            let updatedView2 = [...currentState].find( view => view.id === payload )
+            updatedView2.locked = "unlocked"
+            return currentState.map( view => view.id === payload ? updatedView2 : view )
         default:
             return currentState
     }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Row, Col } from 'react-bootstrap'
+import { Row, Col, Card } from 'react-bootstrap'
 import Post from './Post'
 import LockCard from './LockCard'
 import pluralize from 'pluralize'
@@ -18,7 +18,7 @@ class View extends Component {
             case "locked": 
                 return <LockCard metrics={view.metrics}/>
             case "ad":
-                return <AdCard ad={view.ad} />
+                return <AdCard view_id={view.id} ad={view.ad} />
             case "unlocked":
                 return <Post post={view.post} />
         }
@@ -30,7 +30,9 @@ class View extends Component {
         return (
             <Row style={rowStyle}>
                 <Col>
-                    {this.display()}
+                    <Card className="text-left" style={{transitionDelay: "1s"}}>
+                        {this.display()}
+                    </Card>
                 </Col>
             </Row>
         )
