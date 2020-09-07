@@ -32,7 +32,6 @@ function Post({post, view}) {
                 body: JSON.stringify({viewed: true})
             })
             .then(response=>response.json())
-            .then(console.log)
         }
     }
 

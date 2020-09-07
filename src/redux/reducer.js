@@ -14,6 +14,8 @@ const postsReducer = ( currentState = defaultState.posts, action ) => {
     switch (type) {
         case "ADD_POSTS":
             return payload
+        case "ADD_ADDITIONAL_POSTS":
+            return [...currentState, ...payload]
         case "ADD_COMMENT": 
             let newState = [...currentState]
             let newPost = newState.find( view => view.post && view.post.id === payload.post_id ).post

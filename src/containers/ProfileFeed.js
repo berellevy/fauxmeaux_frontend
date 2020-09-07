@@ -1,32 +1,36 @@
-import React, { Component } from 'react'
+import React, { Component, useState } from 'react'
 import Post from '../components/Post'
 import { connect } from 'react-redux'
-import { fetchUserPosts } from '../redux/actions'
+import { fetchUserPosts, fetchUserPostsPage } from '../redux/actions'
 import { Col, Row } from 'react-bootstrap'
 import View from '../components/View'
+import { useEffect } from 'react'
+import { useBottomScrollListener } from 'react-bottom-scroll-listener';
 
 
+const Profile = ({username, views, fetchUserPosts, fetchUserPostsPage}) => {
+    
+    const [page, setPage] = useState(1)
 
-class Profile extends Component {
-    componentDidMount() {
-        let { username } = this.props
-        this.props.fetchUserPosts(username)
-    }
+    useEffect(() => {
+        fetchUserPosts(username)
+    }, [fetchUserPosts])
 
-    views = () => this.props.views.map(view => <View view={view} />)
-    render() {
-        return (
-                <Row>
-                    <Col sm={3}/>
-                    <Col sm={6}>
-                        {this.views()}
-                    </Col>
-                    <Col sm={3}/>
-                </Row>
-                
-        )
+    useBottomScrollListener(() => {
+        fetchUserPostsPage(username, page)
+        setPage(page + 1)
 
-    }
+    })
+    
+    return (
+        <Row>
+            <Col sm={3}/>
+            <Col sm={6}>
+                {views.map(view => <View view={view} />)}
+            </Col>
+            <Col sm={3}/>
+        </Row>    
+    )
 }
 
 const mapStateToProps = (state) => {
@@ -34,7 +38,10 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-    return { fetchUserPosts: (username) => dispatch(fetchUserPosts(username))}
+    return {
+        fetchUserPosts: (username) => dispatch(fetchUserPosts(username)),
+        fetchUserPostsPage: (username, page_num) => dispatch(fetchUserPostsPage(username, page_num))
+    }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile)

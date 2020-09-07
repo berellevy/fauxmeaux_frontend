@@ -1,29 +1,34 @@
-import React, { Component } from 'react'
+import React, { Component, useEffect, useState } from 'react'
 import Post from '../components/Post'
 import { connect } from 'react-redux'
-import { fetchPosts } from '../redux/actions'
+import { fetchPosts, fetchPostsPage } from '../redux/actions'
 import { Col, Row } from 'react-bootstrap'
 import View from '../components/View'
+import { useBottomScrollListener } from 'react-bottom-scroll-listener';
 
 
-class Feed extends Component {
+const Feed = ({views, fetchPosts, fetchPostsPage}) => {
+    const [page, setPage] = useState(1)
 
-    componentDidMount() {
-        this.props.fetchPosts()
-    }
+    useEffect(()=> {
+        fetchPosts()
+    }, [fetchPosts])
+    
+    useBottomScrollListener(() => {
+        fetchPostsPage(page)
+        setPage(page + 1)
 
-    render() {
-        return (
-            <Row>
-                <Col sm={3}/>
-                <Col>
-                    {this.props.views.map((view) => <View view={view} />)}
-                </Col>
-                <Col sm={3} />
-            </Row>
-        )
+    })
 
-    }
+    return (
+        <Row>
+            <Col sm={3}/>
+            <Col>
+                {views.map((view) => <View view={view} />)}
+            </Col>
+            <Col sm={3} />
+        </Row>
+    )
 }
 
 const mapStateToProps = (state) => {
@@ -31,7 +36,10 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-    return { fetchPosts: () => dispatch(fetchPosts())}
+    return {
+        fetchPosts: () => dispatch(fetchPosts()),
+        fetchPostsPage: (page_num) => dispatch(fetchPostsPage(page_num))
+    }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Feed)

@@ -16,7 +16,7 @@ function ProtectedApp(props) {
     return (
         !loggedIn
         ? <Redirect to="/login" />
-        : <Container fluid="sm">
+        : <Container fluid="sm" >
 
             <NavBar />
 

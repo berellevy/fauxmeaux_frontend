@@ -3,11 +3,12 @@ import { Redirect } from "react-router-dom"
 
 export const base_url = "http://localhost:4000/api/v1"
 export const posts_url = base_url + "/posts"
+const feed_url = base_url + "/feed"
 const login_url = base_url + "/login"
 export const users_url = base_url + "/users"
 const profile_url = base_url + "/profile"
 const comments_url = base_url + "/comments"
-const user_posts_url = (username) => base_url + "/" + username + "/posts" 
+const user_posts_url = (username, page_num) => base_url + "/" + username + "/posts/" + page_num
 export const views_url = base_url + "/views"
 
 const search_url = base_url + "/search"
@@ -26,7 +27,7 @@ export const headers = () => {
 
 export const fetchPosts = () => {
     return (dispatch) => {
-        fetch(posts_url, {headers: headers()})
+        fetch(feed_url + "/" + "0", {headers: headers()})
         .then(response=>response.json())
         .then(data=>{
             dispatch({type: "ADD_POSTS", payload: data})
@@ -34,12 +35,32 @@ export const fetchPosts = () => {
     }
 }
 
+export const fetchPostsPage = (page_num) => {
+    return (dispatch) => {
+        fetch(feed_url + "/" + page_num, {headers: headers()})
+        .then(response=>response.json())
+        .then(data=>{
+            dispatch({type: "ADD_ADDITIONAL_POSTS", payload: data})
+        })
+    }
+}
+
 export const fetchUserPosts = (username) => {
     return (dispatch) => {
-        fetch(user_posts_url(username), {headers: headers()})
+        fetch(user_posts_url(username, 0), {headers: headers()})
         .then(response=>response.json())
         .then(data=>{
             dispatch({type: "ADD_POSTS", payload: data})
+        })
+    }
+}
+
+export const fetchUserPostsPage = (username, page_num) => {
+    return (dispatch) => {
+        fetch(user_posts_url(username, page_num), {headers: headers()})
+        .then(response=>response.json())
+        .then(data=>{
+            dispatch({type: "ADD_ADDITIONAL_POSTS", payload: data})
         })
     }
 }
