@@ -75,7 +75,7 @@ class AddPost extends Component {
         return (
             this.state.newPostId
             ? <Redirect to={"/posts/" + this.state.newPostId} />
-            : <Row>
+            : <Row style={{marginTop: "3em"}}>
                 <Col sm={3}></Col>
                 <Col>
                     <Card>

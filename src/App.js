@@ -5,6 +5,7 @@ import Login from './components/Login';
 import Signup from './components/Signup';
 import ProtectedApp from './components/ProtectedApp';
 import { connect } from 'react-redux';
+import { register } from './redux/actions'
 
 class App extends Component {
   
@@ -30,4 +31,8 @@ const mapStateToProps = (state) => {
   return { user: state.user }
 }
 
-export default connect(mapStateToProps)(App) ;
+const mapDispatchToProps = (dispatch) => {
+  return { register: dispatch(register())}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App) ;

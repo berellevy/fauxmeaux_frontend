@@ -1,8 +1,8 @@
 import React from 'react'
-import Post from '../components/Post'
 import { Component } from 'react'
 import { posts_url, headers } from '../redux/actions'
 import View from '../components/View'
+import { Col, Row } from 'react-bootstrap'
 
 
 class SinglePostPage extends Component {
@@ -19,11 +19,23 @@ class SinglePostPage extends Component {
         
     }
 
+    view = () => {
+        return (
+            <Row>
+                <Col sm={3} />
+                <Col>
+                    {this.state.view
+                    ? <View view={this.state.view} />
+                    : null}
+                </Col>
+                <Col sm={2} />
+            </Row>
+        ) 
+        }
+
     render () {
         return (
-            this.state.view
-            ? <View view={this.state.view} />
-            : null
+            this.view()
         )
     }
 }

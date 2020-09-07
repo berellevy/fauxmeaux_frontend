@@ -36,11 +36,6 @@ function Post({post, view}) {
         }
     }
 
-    // if (isViewed) {
-    //     console.log(view.id);
-        
-    // }
-
     return (
         <span>
             <VizSensor

@@ -83,7 +83,7 @@ class Profile extends Component {
         let { name, username, avatar, bio, posts_qty, followers_qty, following_qty, follows_current_user, is_current_user } = this.state.user
         return (
             <>
-                <Row id="user-headers">
+                <Row id="user-headers" style={{marginTop: "3em"}}>
                     <Col sm={4}>
                         <Image src={defaultImg(avatar)} fluid roundedCircle/>
                     </Col>
@@ -136,11 +136,12 @@ class Profile extends Component {
                 </Row>
     
                 <Row id="user-posts" style={postsContainerStyle}>
+                    <Col>
                     <Row id="posts-headers">
                         <h1>Posts</h1>
                     </Row>
                     <ProfileFeed username={this.username()}/>
-                        
+                    </Col>
                 </Row>
                 
             </>

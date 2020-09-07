@@ -17,11 +17,11 @@ class Profile extends Component {
     render() {
         return (
                 <Row>
-                    <Col sm={2}/>
-                    <Col>
+                    <Col sm={3}/>
+                    <Col sm={6}>
                         {this.views()}
                     </Col>
-                    <Col sm={2}/>
+                    <Col sm={3}/>
                 </Row>
                 
         )

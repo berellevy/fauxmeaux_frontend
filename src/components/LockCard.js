@@ -4,7 +4,7 @@ import { Card, Row, Col } from 'react-bootstrap'
 import pluralize from 'pluralize'
 import { unlockView } from '../redux/actions';
 
-function LockCard({ metrics, unlockView, showAd }) {
+const LockCard = ({ metrics, unlockView, showAd }) => {
     
     let clickHandler = (e) => {
         let { view_id } = metrics
@@ -19,7 +19,6 @@ function LockCard({ metrics, unlockView, showAd }) {
                 {user.username}
             </Card.Header>
             <Card.Img src="http://placeholder.pics/svg/400x500/DEDEDE/555555/Unlock" onClick={clickHandler} />
-            
                 {!comments ? null : <Card.Text>{pluralize("comment", comments, true)}</Card.Text> }
                 {!views ? null : <Card.Text>{pluralize("view", views, true)}</Card.Text> }
         </span>  
