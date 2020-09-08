@@ -5,7 +5,6 @@ const defaultState = {
     user: {
         loggedIn: false
     },
-    profilePosts: [],
     users: [] 
 }
 
@@ -32,20 +31,6 @@ const postsReducer = ( currentState = defaultState.posts, action ) => {
             let updatedView2 = [...currentState].find( view => view.id === payload )
             updatedView2.locked = "unlocked"
             return currentState.map( view => view.id === payload ? updatedView2 : view )
-        default:
-            return currentState
-    }
-}
-
-const profilePostsReducer = ( currentState = defaultState.profilePosts, action) => {
-    let { type, payload } = action
-    switch (type) {
-        case "ADD_USER_POSTS":
-            return action.payload
-        case "SHOW_PROFILE_AD":
-            let updatedView = [...currentState].find( view => view.id === payload )
-            updatedView.locked = "ad"
-            return currentState.map( view => view.id === payload ? updatedView : view )
         default:
             return currentState
     }
@@ -84,7 +69,6 @@ const usersReducer = (currentState = defaultState.users, action) => {
 const appReducer = combineReducers({
     posts: postsReducer,
     user: userReducer,
-    profilePosts: profilePostsReducer,
     users: usersReducer
 })
 
