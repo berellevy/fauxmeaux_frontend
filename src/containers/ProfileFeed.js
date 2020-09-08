@@ -1,5 +1,4 @@
-import React, { Component, useState } from 'react'
-import Post from '../components/Post'
+import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { fetchUserPosts, fetchUserPostsPage } from '../redux/actions'
 import { Col, Row } from 'react-bootstrap'
@@ -14,7 +13,7 @@ const Profile = ({username, views, fetchUserPosts, fetchUserPostsPage}) => {
 
     useEffect(() => {
         fetchUserPosts(username)
-    }, [fetchUserPosts])
+    }, [fetchUserPosts, username])
 
     useBottomScrollListener(() => {
         fetchUserPostsPage(username, page)

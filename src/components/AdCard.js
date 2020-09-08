@@ -1,7 +1,6 @@
 import React from 'react'
 import { Card, ListGroupItem } from 'react-bootstrap'
 import { connect } from 'react-redux'
-import { showPostBackend } from '../redux/actions'
 import { views_url, headers } from '../redux/actions'
 
 
@@ -28,11 +27,7 @@ function AdCard({ad, view_id, showPost}) {
     ) 
 }
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        showPostBackend: (view_id) => dispatch(showPostBackend(view_id)),
-        showPost: (view_id) => dispatch({type: "SHOW_POST", payload: view_id})
-    }
-}
+const mapDispatchToProps = (dispatch) => ({showPost: (view_id) => dispatch({type: "SHOW_POST", payload: view_id})})
+
 
 export default connect(null, mapDispatchToProps)(AdCard)

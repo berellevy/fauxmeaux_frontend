@@ -1,5 +1,6 @@
 import React from 'react'
 import { Row, Col } from 'react-bootstrap'
+import UserLink from './UserLink'
 
 
 function Comment({comment}) {
@@ -7,7 +8,7 @@ function Comment({comment}) {
     return (
         <Row>
             <Col align="left" sm="auto">
-                <strong>{user.username}</strong> <span> {text}</span> </Col>
+                <UserLink user={user}/><span> {text}</span> </Col>
 
 
         </Row>

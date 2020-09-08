@@ -1,5 +1,4 @@
-import React, { Component, useEffect, useState } from 'react'
-import Post from '../components/Post'
+import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { fetchPosts, fetchPostsPage } from '../redux/actions'
 import { Col, Row } from 'react-bootstrap'

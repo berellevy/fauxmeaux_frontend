@@ -1,5 +1,4 @@
 import { authToken } from "../auth/Auth"
-import { Redirect } from "react-router-dom"
 
 export const base_url = "http://localhost:4000/api/v1"
 export const posts_url = base_url + "/posts"
@@ -27,7 +26,7 @@ export const headers = () => {
 
 export const fetchPosts = () => {
     return (dispatch) => {
-        fetch(feed_url + "/" + "0", {headers: headers()})
+        fetch(feed_url + "/0", {headers: headers()})
         .then(response=>response.json())
         .then(data=>{
             dispatch({type: "ADD_POSTS", payload: data})
@@ -126,9 +125,6 @@ export const submitPost = (post) => {
             body: JSON.stringify(post)
         })
         .then(response=>response.json())
-        .then(post=> {
-            let { id } = post
-        })
     }
 }
 

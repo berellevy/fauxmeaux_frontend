@@ -1,35 +1,28 @@
-import React, { Component } from 'react'
-import { headers, users_url } from '../redux/actions'
-import { Nav, Row } from 'react-bootstrap'
+import React from 'react'
+import { Row } from 'react-bootstrap'
 import { NavLink } from 'react-router-dom'
 import { connect } from 'react-redux'
+import UserLink from '../components/UserLink'
 
 
-class UserList extends Component{
-
-    userlinksList = () => {
-        return this.props.users.map(u=>{
+const UserList = ({users}) => {
+    console.log(users);
+    const userlinksList = () => {
+        return users.map((user)=>{
             return (
                 <Row>
-                    <NavLink to={"/"+ u.username} >
-                        {u.username}
-                    </NavLink>
+                    <UserLink user={user} />
                 </Row>
             )
         })
     }
 
-    render() {
-        return (
-            <>
-                
-                <h1>Users</h1>
-                {this.userlinksList()}
-
-
-            </>
-        )
-    }
+    return (
+        <>
+            <h1>Users</h1>
+            {userlinksList()}
+        </>
+    )
 }
 
 const mapStateToProps = (state) => {

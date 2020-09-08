@@ -30,6 +30,8 @@ const View = ({view}) => {
                     post={view.post} 
                     view={view}
                 />
+            default:
+                return null
         }
     }
 

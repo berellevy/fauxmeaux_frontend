@@ -1,30 +1,27 @@
 import React, { useState } from 'react'
-import { Row, Col, Card, ListGroup, ListGroupItem } from 'react-bootstrap'
+import { Card, ListGroup, ListGroupItem } from 'react-bootstrap'
 import PostCommentsContainer from '../containers/PostCommentsContainer';
 import { NavLink } from 'react-router-dom';
-import { posts_url, views_url, headers } from '../redux/actions';
+import { views_url, headers } from '../redux/actions';
 import AddComment from './AddComment';
-import getTimeAgo from '../helpers/getTimeAgo'
 import VizSensor from 'react-visibility-sensor';
+import UserLink from './UserLink';
 
 
 
 
-function Post({post, view}) {
-    let { is_young, viewed } = view
-    const [isViewed, setViewed] = useState(viewed)
+const Post = ({post, view}) => {
+    let { is_young, viewed, is_own_post } = view
     let { text, img, user, id, comments} = post
+
+    const [isViewed, setViewed] = useState(viewed)
+    
     let imgSrc = () => img ? img : "https://placeholder.pics/svg/600/DEDEDE/555555/no%20image"
 
-    let userHeader = () => {
-        return (
-            !post.user 
-            ? null
-            : <Card.Header>{user.username}</Card.Header>
-        )
-    }
+let userHeader = () => !post.user ? null : <Card.Header><UserLink user={post.user}/></Card.Header>
+    
     let handleViewChange = (isVisible) => {
-        if (!isViewed && is_young && isVisible) {
+        if (!isViewed && !is_own_post && is_young && isVisible) {
             setViewed(true)
             fetch( views_url + "/" + view.id, {
                 method: "PATCH",
