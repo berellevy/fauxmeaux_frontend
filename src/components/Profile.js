@@ -81,7 +81,7 @@ class Profile extends Component {
     
     render () {
         
-        let { username, avatar, posts_qty, followers_qty, following_qty, follows_current_user, is_current_user } = this.state.user
+        let { avatar, posts_qty, followers_qty, following_qty, follows_current_user, is_current_user } = this.state.user
 
         return (
             <>
