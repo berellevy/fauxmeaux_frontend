@@ -1,46 +1,38 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Form, Button, Row, Col } from 'react-bootstrap'
 import { submitComment } from '../redux/actions'
 import { connect } from 'react-redux'
+import { useState } from 'react'
 
 
-class AddComment extends Component {
+const AddComment = ({post_id, submitComment}) => {
 
-    state = { text: "" }
+    let [text, setText] = useState("")
 
-    submitHandler = (e) => {
+    const submitHandler = (e) => {
         e.preventDefault()
-        let comment = { ...this.state, post_id: this.props.post_id}
-        this.props.submitComment(comment)
+        submitComment({ text, post_id })
+        setText("")
     }
 
-    changeHandler = (e) => {
-        let { name, value } = e.target
-        this.setState({ [name]: value})
-    } 
-
-    render() {
-        return (
-            <Form onSubmit={this.submitHandler}>
-                <Row>
-                    <Col sm="10">
-                        <Form.Control 
-                            type="text"
-                            placeholder="add comment"
-                            name = "text"
-                            value = {this.state.text}
-                            onChange = {this.changeHandler}
-                        />
-                    </Col>
-
-                    <Button variant="light" type="submit">
-                        submit
-                    </Button>
-                </Row>
-                
-            </Form>
-        )
-    }
+    return (
+        <Form onSubmit={submitHandler}>
+            <Row>
+                <Col sm="10">
+                    <Form.Control 
+                        type="text"
+                        placeholder="add comment"
+                        value = {text}
+                        onChange={ e => setText(e.target.value) }
+                    />
+                </Col>
+                <Button variant="light" type="submit">
+                    submit
+                </Button>
+            </Row>
+            
+        </Form>
+    )
 }
 
 const mapDispatchToProps = (dispatch) => {
