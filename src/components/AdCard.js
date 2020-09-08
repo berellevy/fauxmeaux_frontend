@@ -1,22 +1,18 @@
 import React from 'react'
 import { Card, ListGroupItem } from 'react-bootstrap'
 import { connect } from 'react-redux'
-import { views_url, headers } from '../redux/actions'
+import { views_url } from '../redux/actions'
+import { fetcher } from '../helpers/Fetcher'
 
-
-function AdCard({ad, view_id, showPost}) {
+const AdCard = ({ad, view_id, showPost}) => {
     const clickHandler = () => {
         showPost(view_id)
-        fetch( views_url + "/" + view_id, {
-            method: "PATCH",
-            headers: headers(),
-            body: JSON.stringify({locked: "unlocked"})
-        })
+        fetcher(views_url + "/" + view_id, { method: "PATCH", body: {locked: "unlocked"} })
     }
 
     return (
         <span>
-            <Card.Header bg="primary" as="h4" >
+            <Card.Header as="h4" >
                 Ad
             </Card.Header>
             <Card.Img src={ad.img} onClick={clickHandler}/>

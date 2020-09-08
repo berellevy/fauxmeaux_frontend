@@ -1,25 +1,20 @@
 import React from 'react'
 import { Component } from 'react'
-import { posts_url, headers } from '../redux/actions'
+import { posts_url } from '../redux/actions'
 import View from '../components/View'
 import { Col, Row } from 'react-bootstrap'
-
+import { fetcher } from '../helpers/Fetcher'
 
 class SinglePostPage extends Component {
 
-    state = {
-        view: null
-    }
+    state = {view: null}
     
     componentDidMount() {
-        fetch(posts_url + "/" +this.props.match.params.id, {headers: headers()})
-        .then(response => response.json())
+        fetcher(posts_url + "/" +this.props.match.params.id)
         .then(data => this.setState({view: data}))
-        .catch(error => console.log(error))
-        
     }
 
-    view = () => {
+    render () {
         return (
             <Row>
                 <Col sm={3} />
@@ -30,12 +25,6 @@ class SinglePostPage extends Component {
                 </Col>
                 <Col sm={2} />
             </Row>
-        ) 
-        }
-
-    render () {
-        return (
-            this.view()
         )
     }
 }

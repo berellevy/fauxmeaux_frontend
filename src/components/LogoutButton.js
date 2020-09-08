@@ -5,10 +5,10 @@ import { logout } from '../redux/actions';
 
 
 
-function LogoutButton(props) {
+const LogoutButton = ({logout}) => {
     const handleLogout = () => {
         localStorage.removeItem("token")
-        props.logout()
+        logout()
     }
     return (
         <span onClick={handleLogout}>

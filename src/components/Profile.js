@@ -3,21 +3,18 @@ import { Row, Col, Image, Button } from 'react-bootstrap'
 import defaultImg from '../helpers/defaultImg'
 import { connect } from 'react-redux'
 import ProfileFeed from '../containers/ProfileFeed'
-import { base_url, headers, getFollows } from '../redux/actions'
+import { base_url, getFollows } from '../redux/actions'
 import { NavLink, withRouter } from 'react-router-dom'
 import { compose } from 'redux'
 import { useEffect } from 'react'
 import { useState } from 'react'
-
-
+import { fetcher } from '../helpers/Fetcher'
 
 const postsContainerStyle = {
     marginTop: "3em",
     borderTop: "2px solid lightgrey"
 
 }
-
-
 
 const Profile = (props) => {
 
@@ -26,24 +23,14 @@ const Profile = (props) => {
     let [user, setUser] = useState({})
 
     useEffect(() => {
-        fetch(base_url + "/" + username, {headers: headers()})
-            .then(response=>response.json())
-            .then(data=> setUser(data.user))
+        fetcher(base_url + "/" + username)
+        .then(data=> setUser(data.user))
         },[username])
 
     const handleFollowClick = () => {
-        fetch(base_url + "/togglefollow", {
-            method: "POST", 
-            headers: headers(), 
-            body: JSON.stringify({ username: username()}) 
-        })
-        .then(response=> response.json())
-        .then(data=>setUser(data.user))
+        fetcher(base_url + "/togglefollow", {method: "POST", body: {username: username}})
+        .then(data=>setUser(data))
     } 
-
-    
-
-    
 
     const handleFollowsClick = (e, type) => {
         e.preventDefault()
@@ -60,9 +47,6 @@ const Profile = (props) => {
         )
     }
 
-
-
-    console.log(user);
     return (
         <>
             <Row id="user-headers" style={{marginTop: "3em"}}>
@@ -78,16 +62,21 @@ const Profile = (props) => {
                         <Col>
                             <h1>{username}</h1>
                         </Col>
-                        <Col>
-                            {user.is_current_user ? null : followButton()}
-                        </Col>
-                        <Col>
-                            {user.is_current_user
-                                ? null
-                                : user.follows_current_user
-                                    ? <h3>Follows you</h3>
-                                    : null}
-                        </Col>
+
+                        {
+                            user.is_current_user
+                            ? <><Col/><Col/></>
+                            : <><Col>
+                            {followButton()}
+                            </Col>
+                            <Col>
+                            {user.follows_current_user ? <h3>Follows you</h3> : null}
+                            </Col></>
+
+                        }
+                        
+
+
                     </Row>
                     <Row>
                         <Col>
@@ -108,7 +97,6 @@ const Profile = (props) => {
 
                 </Col>
             </Row>
-
             <Row id="user-posts" style={postsContainerStyle}>
                 <Col>
                 <Row id="posts-headers">
@@ -119,9 +107,7 @@ const Profile = (props) => {
             </Row>
             
         </>
-    )
-
-    
+    )  
 }
 
 const mapStateToProps = (state, ownProps) => {

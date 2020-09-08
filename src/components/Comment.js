@@ -3,14 +3,13 @@ import { Row, Col } from 'react-bootstrap'
 import UserLink from './UserLink'
 
 
-function Comment({comment}) {
+const Comment = ({comment}) => {
     let { user, text } = comment
     return (
         <Row>
             <Col align="left" sm="auto">
-                <UserLink user={user}/><span> {text}</span> </Col>
-
-
+                <UserLink user={user}/><span> {text}</span> 
+            </Col>
         </Row>
     )
 }

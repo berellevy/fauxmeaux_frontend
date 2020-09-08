@@ -1,4 +1,4 @@
-import { authToken } from "../auth/Auth"
+import { fetcher } from "../helpers/Fetcher"
 
 export const base_url = "http://localhost:4000/api/v1"
 export const posts_url = base_url + "/posts"
@@ -9,25 +9,12 @@ const profile_url = base_url + "/profile"
 const comments_url = base_url + "/comments"
 const user_posts_url = (username, page_num) => base_url + "/" + username + "/posts/" + page_num
 export const views_url = base_url + "/views"
-
 const search_url = base_url + "/search"
-
-export const headers = () => {
-    const headers = {
-        "content-type": "application/json",
-        "accept": "application/json"
-    }
-    if (authToken()) {
-        headers.Authorization = `Bearer ${authToken()}`
-    }
-    return headers
-}
 
 
 export const fetchPosts = () => {
     return (dispatch) => {
-        fetch(feed_url + "/0", {headers: headers()})
-        .then(response=>response.json())
+        fetcher(feed_url + "/0")
         .then(data=>{
             dispatch({type: "ADD_POSTS", payload: data})
         })
@@ -36,28 +23,21 @@ export const fetchPosts = () => {
 
 export const fetchPostsPage = (page_num) => {
     return (dispatch) => {
-        fetch(feed_url + "/" + page_num, {headers: headers()})
-        .then(response=>response.json())
-        .then(data=>{
-            dispatch({type: "ADD_ADDITIONAL_POSTS", payload: data})
-        })
+        fetcher(feed_url + "/" + page_num)
+        .then(data=>{dispatch({type: "ADD_ADDITIONAL_POSTS", payload: data})})
     }
 }
 
 export const fetchUserPosts = (username) => {
     return (dispatch) => {
-        fetch(user_posts_url(username, 0), {headers: headers()})
-        .then(response=>response.json())
-        .then(data=>{
-            dispatch({type: "ADD_POSTS", payload: data})
-        })
+        fetcher(user_posts_url(username, 0))
+        .then(data=>{dispatch({type: "ADD_POSTS", payload: data})})
     }
 }
 
 export const fetchUserPostsPage = (username, page_num) => {
     return (dispatch) => {
-        fetch(user_posts_url(username, page_num), {headers: headers()})
-        .then(response=>response.json())
+        fetcher(user_posts_url(username, page_num))
         .then(data=>{
             dispatch({type: "ADD_ADDITIONAL_POSTS", payload: data})
         })
@@ -67,12 +47,7 @@ export const fetchUserPostsPage = (username, page_num) => {
 
 export const login = (credentials) => {
     return (dispatch) => {
-        fetch(login_url, {
-            method: 'POST',
-            headers: headers(),
-            body: JSON.stringify(credentials)
-        })
-        .then(response=>response.json())
+        fetcher(login_url, {method: "POST", body: credentials})
         .then(data => {
             if (data.ok) {
                 localStorage.setItem("token", data.jwt)
@@ -86,12 +61,7 @@ export const login = (credentials) => {
 
 export const signup = (credentials) => {
     return (dispatch) => {
-        fetch(users_url, {
-            method: "POST",
-            headers: headers(),
-            body: JSON.stringify(credentials)
-        })
-        .then(response=>response.json())
+        fetcher(users_url, {method: "POST", body: credentials})
         .then(data=> {
             if (data.ok) {
                 localStorage.setItem("token", data.jwt)
@@ -107,8 +77,7 @@ export const signup = (credentials) => {
 
 export const register = () => {
     return (dispatch) =>{
-        fetch(profile_url, {headers: headers()})
-        .then(response=>response.json())
+        fetcher(profile_url)
         .then(data=> {
             if (data.user) {
                 dispatch({type: "REGISTER_SUCCESS", payload: data.user})
@@ -119,23 +88,13 @@ export const register = () => {
 
 export const submitPost = (post) => {
     return (dispatch) => {
-        fetch(posts_url, {
-            method: "POST",
-            headers: headers(),
-            body: JSON.stringify(post)
-        })
-        .then(response=>response.json())
+        fetcher(posts_url, {method: "POST", body: post})
     }
 }
 
 export const submitComment = (comment) => {
     return (dispatch) => {
-        fetch(comments_url, {
-            method: "POST",
-            headers: headers(),
-            body: JSON.stringify(comment)
-        })
-        .then(response=>response.json())
+        fetcher(comments_url, {method: "POST", body: comment})
         .then(data => {
             dispatch({type: "ADD_COMMENT", payload: data})
         })
@@ -144,49 +103,28 @@ export const submitComment = (comment) => {
 
 export const submitSearch = (query) => {
     return (dispatch) => {
-        fetch(search_url, {
-            method: "POST",
-            headers: headers(),
-            body: JSON.stringify(query)
-        })
-        .then(response=>response.json())
+        fetcher(search_url, {method: "POST", body: query})
         .then(data=>dispatch({type: "ADD_USERS", payload: data}))
     }
 }
 
 export const getFollows = (username_and_type) => {
     return (dispatch) => {
-        let url = base_url + "/" + username_and_type
-        fetch(url, {headers: headers()})
-        .then(response=>response.json())
-        .then(data=>{
-            dispatch({type: "ADD_USERS", payload: data})
-        })
+        fetcher(base_url + "/" + username_and_type)
+        .then(data=>{dispatch({type: "ADD_USERS", payload: data})})
     }
 }
 
 export const unlockView = (view_id) => {
     return (dispatch) => {
-        fetch( views_url + "/" + view_id, {
-            method: 'PATCH',
-            headers: headers(),
-            body: JSON.stringify({locked: "ad"})
-        })
-        .then(response=>response.json())
-        .then(data => {
-            dispatch({type: "UNLOCK_VIEW", payload: data})
-        })
+        fetcher(views_url + "/" + view_id, {method: "PATCH", body: {locked: "ad"}})
+        .then(data => {dispatch({type: "UNLOCK_VIEW", payload: data})})
     }
 }
 
 export const showPostBackend = (view_id) => {
     return (dispatch) => {
-        fetch( views_url + "/" + view_id, {
-            method: 'PATCH',
-            headers: headers(),
-            body: JSON.stringify({locked: "ad"})
-        })
-        .then(console.log)
+        fetcher(views_url + "/" + view_id, {method: "PATCH", body: {locked: "ad"}})
     }
 }
 

@@ -2,11 +2,11 @@ import React, { useState } from 'react'
 import { Card, ListGroup, ListGroupItem } from 'react-bootstrap'
 import PostCommentsContainer from '../containers/PostCommentsContainer';
 import { NavLink } from 'react-router-dom';
-import { views_url, headers } from '../redux/actions';
+import { views_url } from '../redux/actions';
 import AddComment from './AddComment';
 import VizSensor from 'react-visibility-sensor';
 import UserLink from './UserLink';
-
+import { headers } from '../helpers/Fetcher'
 
 
 

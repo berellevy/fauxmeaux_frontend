@@ -4,7 +4,7 @@ import validURL from '../helpers/validUrl'
 import { connect } from 'react-redux'
 import { submitPost, posts_url } from '../redux/actions'
 import { Redirect } from 'react-router-dom'
-import { headers } from '../redux/actions'
+import { fetcher } from '../helpers/Fetcher'
 
 
 class AddPost extends Component {
@@ -56,15 +56,9 @@ class AddPost extends Component {
         e.preventDefault()
         let { text, imgUrl } = this.state
         let post = { text: text, img: imgUrl }
-        fetch(posts_url, {
-            method: "POST",
-            headers: headers(),
-            body: JSON.stringify(post)
-        })
-        .then(response=>response.json())
+        fetcher(posts_url, {method: "POST", body: post})
         .then(view=> {
             let { id } = view.post
-            console.log(post);
             this.setState({newPostId: id})
         })
 
