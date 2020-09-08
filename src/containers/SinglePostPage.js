@@ -1,33 +1,27 @@
-import React from 'react'
-import { Component } from 'react'
+import React, { useState, useEffect } from 'react'
 import { posts_url } from '../redux/actions'
 import View from '../components/View'
 import { Col, Row } from 'react-bootstrap'
 import { fetcher } from '../helpers/Fetcher'
 
-class SinglePostPage extends Component {
+const SinglePostPage = ({ match }) => {
 
-    state = {view: null}
+    const [view, setView] = useState(null)
     
-    componentDidMount() {
-        fetcher(posts_url + "/" +this.props.match.params.id)
-        .then(data => this.setState({view: data}))
-    }
-
-    render () {
-        return (
-            <Row>
-                <Col sm={3} />
-                <Col>
-                    {this.state.view
-                    ? <View view={this.state.view} />
-                    : null}
-                </Col>
-                <Col sm={2} />
-            </Row>
-        )
-    }
+    useEffect(() => {
+        fetcher(posts_url + "/" + match.params.id)
+        .then(data => setView(data))
+    },[match.params.id])
+        
+    return (
+        <Row>
+            <Col sm={3} />
+            <Col>
+                {view ? <View view={view} /> : null}
+            </Col>
+            <Col sm={2} />
+        </Row>
+    )
 }
-
 
 export default SinglePostPage
