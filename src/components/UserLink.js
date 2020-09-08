@@ -1,6 +1,7 @@
 import React from 'react'
-import { Image} from "react-bootstrap"
+import { Image } from "react-bootstrap"
 import ProfileIcon from "../icons/ProfileIcon"
+import { NavLink } from 'react-router-dom'
 
 const UserLink = ({user}) => {
     const { username, avatar } = user
@@ -8,9 +9,9 @@ const UserLink = ({user}) => {
     const defaultAvatar = avatar ? <Image src={avatar} roundedCircle thumbnail/> : <ProfileIcon/>
 
     return (
-        <a href={"/" + username} variant="dark">
+        <NavLink to={"/" + username} variant="dark">
             {defaultAvatar} <span variant="dark" style={{marginLeft: "4px", color: "black", fontWeight: "bold"}}>{username}</span>
-        </a>
+        </NavLink>
     )
 }
 
