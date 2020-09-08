@@ -18,7 +18,7 @@ class Signup extends Component {
             return fieldArr[1].map(message=> {
                 console.log(message);
                 return <p>{fieldArr[0]} {message}</p>
-            })
+        })
         })
         : <p><br/></p>
         return errors
