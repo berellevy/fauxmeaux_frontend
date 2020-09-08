@@ -3,7 +3,7 @@ import { Form, FormControl, Button } from 'react-bootstrap'
 import SearchIcon from '../icons/SearchIcon'
 import { submitSearch } from '../redux/actions'
 import { connect } from 'react-redux'
-import { Redirect, withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import { compose } from 'redux'
 
 

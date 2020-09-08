@@ -55,7 +55,6 @@ class AddPost extends Component {
     submitHandler = (e) => {
         e.preventDefault()
         let { text, imgUrl } = this.state
-        let { id } = this.props.user
         let post = { text: text, img: imgUrl }
         fetch(posts_url, {
             method: "POST",

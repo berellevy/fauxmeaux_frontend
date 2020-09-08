@@ -18,7 +18,7 @@ const Post = ({post, view}) => {
     
     let imgSrc = () => img ? img : "https://placeholder.pics/svg/600/DEDEDE/555555/no%20image"
 
-let userHeader = () => !post.user ? null : <Card.Header><UserLink user={post.user}/></Card.Header>
+    let userHeader = () => !post.user ? null : <Card.Header><UserLink user={user}/></Card.Header>
     
     let handleViewChange = (isVisible) => {
         if (!isViewed && !is_own_post && is_young && isVisible) {

@@ -5,12 +5,12 @@ import ProfileIcon from '../icons/ProfileIcon'
 import CameraIcon from '../icons/CameraIcon'
 import LogoutButton from './LogoutButton'
 import Logo from '../icons/Logo'
-import { Button, Navbar, Nav, Container, Col } from 'react-bootstrap'
+import { Button, Navbar, Nav, Col } from 'react-bootstrap'
 import NavSearch from './NavSearch'
 
 
 
-function NavBar() {
+const  NavBar = () => {
     return (
         <Navbar bg="light">
             <Col>

@@ -80,7 +80,7 @@ class Profile extends Component {
     
     
     render () {
-        let { name, username, avatar, bio, posts_qty, followers_qty, following_qty, follows_current_user, is_current_user } = this.state.user
+        let { username, avatar, posts_qty, followers_qty, following_qty, follows_current_user, is_current_user } = this.state.user
         return (
             <>
                 <Row id="user-headers" style={{marginTop: "3em"}}>
@@ -94,7 +94,7 @@ class Profile extends Component {
                             style={{margin: "5px"}}
                         >
                             <Col>
-                                <h1>{this.username()}</h1>
+                                <h1>{username}</h1>
                             </Col>
                             <Col>
                                 {
