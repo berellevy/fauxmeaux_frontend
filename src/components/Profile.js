@@ -24,8 +24,6 @@ class Profile extends Component {
         user: {}
     }
 
-    isCurrentUser = () => !this.props.match.params.username
-
     followButton = () => {
         return (
             !this.state.user.followed_by_current_user
@@ -52,20 +50,24 @@ class Profile extends Component {
 
 
 
-    username = () => {
-        return (
-            this.isCurrentUser()
-            ? this.props.username
-            : this.props.match.params.username
-        )
-    }
+    username = () => this.props.match.params.username
     
     componentDidMount () {
+        this.getUser()
+    }
+
+    componentDidUpdate () {
+        if (this.username() !== this.state.user.username) {
+            this.getUser()
+        }
+    }
+
+    getUser = () => {
         fetch(base_url + "/" + this.username(), {headers: headers()})
         .then(response=>response.json())
         .then(data=> {
             this.setState({ user: data.user })
-        })
+        }) 
     }
 
     handleFollowsClick = (e, type) => {
@@ -77,10 +79,10 @@ class Profile extends Component {
 
 
     
-    
-    
     render () {
+        
         let { username, avatar, posts_qty, followers_qty, following_qty, follows_current_user, is_current_user } = this.state.user
+
         return (
             <>
                 <Row id="user-headers" style={{marginTop: "3em"}}>
@@ -94,7 +96,7 @@ class Profile extends Component {
                             style={{margin: "5px"}}
                         >
                             <Col>
-                                <h1>{username}</h1>
+                                <h1>{this.username()}</h1>
                             </Col>
                             <Col>
                                 {

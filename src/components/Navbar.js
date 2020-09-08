@@ -7,10 +7,11 @@ import LogoutButton from './LogoutButton'
 import Logo from '../icons/Logo'
 import { Button, Navbar, Nav, Col } from 'react-bootstrap'
 import NavSearch from './NavSearch'
+import { connect } from 'react-redux'
 
 
 
-const  NavBar = () => {
+const  NavBar = ({user}) => {
     return (
         <Navbar bg="light">
             <Col>
@@ -42,7 +43,7 @@ const  NavBar = () => {
             </Button>
           
             <Button variant="link">
-            <NavLink to="/profile">
+            <NavLink to={"/" + user.username} >
                 <ProfileIcon/>
             </NavLink>
             </Button>
@@ -58,5 +59,8 @@ const  NavBar = () => {
     )
 }
 
+const mapStateToProps = (state) => {
+    return {user: state.user}
+}
 
-export default NavBar
+export default connect(mapStateToProps)(NavBar)
