@@ -40,9 +40,13 @@ const View = ({view}) => {
         <Row style={rowStyle}>
             <Col>
                 <Card className="text-left">
-
+                    <ReactCSSTransitionReplace
+                        transitionName="ht"
+                        transitionEnterTimeout={700}
+                        transitionLeaveTimeout={700}
+                    >
                         {display()}
-
+                    </ReactCSSTransitionReplace>
                 </Card>
             </Col>
         </Row>
