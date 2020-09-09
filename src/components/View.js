@@ -4,6 +4,7 @@ import Post from './Post'
 import LockCard from './LockCard'
 import AdCard from './AdCard'
 import '../View.scss'
+import ReactCSSTransitionReplace from 'react-css-transition-replace';
 
 const rowStyle = {
     marginTop: "3em"
@@ -39,12 +40,13 @@ const View = ({view}) => {
         <Row style={rowStyle}>
             <Col>
                 <Card className="text-left">
+
                         {display()}
+
                 </Card>
             </Col>
         </Row>
     )
 }
-
 
 export default View

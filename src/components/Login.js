@@ -2,7 +2,14 @@ import React, { Component } from 'react'
 import { login } from '../redux/actions'
 import { connect } from 'react-redux'
 import { Redirect, NavLink } from 'react-router-dom'
+import { Container, Row, Card, Form, FormControl, Button } from 'react-bootstrap'
+import Logo from '../icons/Logo'
 
+const cardStyle = {
+    width: '18rem', 
+    minHeight: "1px", 
+    margin: "0.5rem auto"
+}
 
 class Login extends Component {
 
@@ -18,7 +25,7 @@ class Login extends Component {
         this.props.submitHandler({user: this.state})
     }
 
-    loginError = () => this.props.user.error ? <p>{this.props.user.error}</p> : <p><br></br></p>
+    loginError = () => this.props.user.error ? <p>{this.props.user.error}</p> : null
 
     render() {
         let { username, password } = this.state
@@ -26,31 +33,54 @@ class Login extends Component {
         return (
             user.loggedIn 
             ? <Redirect to="/"/> 
-            : <div>
-                <h1>Login</h1>
-                <form onSubmit={this.submitHandler}>
-                    <input 
-                        type="text"
-                        name="username"
-                        placeholder="username"
-                        value={username}
-                        onChange={this.changeHandler}
-                    />
-                    <input 
-                        type="text"
-                        name="password"
-                        placeholder="password"
-                        value={password}
-                        onChange={this.changeHandler}
-                    />
-                    <input type="submit" value="login" />
-                </form>
-                { this.loginError() }
+            : <Container fluid="sm">
+                <Row style={{height: "5rem"}} />
+                <Row >
+                    <Card style={cardStyle}>
+                        <Card.Header><Logo/></Card.Header>
+                        <Card.Body>
+                            <Form onSubmit={this.submitHandler}>
+                                <Form.Group>
+                                    <FormControl 
+                                        type="text"
+                                        name="username"
+                                        placeholder="username"
+                                        value={username}
+                                        onChange={this.changeHandler}
+                                        size="sm"
+                                    />
+                                </Form.Group>
 
-                <NavLink to="/signup">
-                    Sign up
-                </NavLink>
-            </div>
+                                <Form.Group>
+                                    <FormControl
+                                        type="password"
+                                        name="password"
+                                        placeholder="password"
+                                        value={password}
+                                        onChange={this.changeHandler}
+                                        size="sm"
+                                    />
+                                </Form.Group>
+                                <Button variant="primary" type="submit" size="sm" block>
+                                    Log In
+                                </Button>
+                                <Form.Text className="text-muted">
+                                    By logging in, you agree to buy me supper.
+                                </Form.Text>
+                            </Form>
+                            { this.loginError() }
+                        </Card.Body>
+                    </Card>
+                </Row>
+
+                <Row>
+                    <Card style={cardStyle}>
+                        <Card.Body style={{padding: "7px"}}>
+                            Don't have an account? <NavLink to="/signup">Sign up</NavLink>
+                        </Card.Body>
+                    </Card>
+                </Row>
+            </Container>
         )
     }
 }
