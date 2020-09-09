@@ -2,8 +2,14 @@ import React, { Component } from 'react'
 import { NavLink, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { signup } from '../redux/actions'
+import { Container, Card, Form, FormControl, Row, Button } from 'react-bootstrap'
+import Logo from '../icons/Logo'
 
-
+const cardStyle = {
+    width: '18rem', 
+    minHeight: "1px", 
+    margin: "0.5rem auto"
+}
 
 class Signup extends Component {
     
@@ -17,10 +23,10 @@ class Signup extends Component {
         ? Object.entries(this.props.user.errors).map(fieldArr=> {
             return fieldArr[1].map(message=> {
                 console.log(message);
-                return <p>{fieldArr[0]} {message}</p>
+                return <Card.Body>{fieldArr[0]} {message}</Card.Body>
         })
         })
-        : <p><br/></p>
+        : null
         return errors
     }
 
@@ -30,6 +36,8 @@ class Signup extends Component {
         e.preventDefault()
         this.props.submitHandler({user: this.state})
     }
+
+
     
     render() {
         let { username, password } = this.state
@@ -37,30 +45,55 @@ class Signup extends Component {
         return (
             user.loggedIn 
             ? <Redirect to="/"/> 
-            : <div>
-                <h1>Signup</h1>
-                <form onSubmit={this.submitHandler}>
-                    <input 
-                        type="text"
-                        name="username"
-                        placeholder="username"
-                        value={username}
-                        onChange={this.changeHandler}
-                    />
-                    <input 
-                        type="text"
-                        name="password"
-                        placeholder="password"
-                        value={password}
-                        onChange={this.changeHandler}
-                    />
-                    <input type="submit" value="signup" />
-                </form>
-                {this.errorMessages()}
-                <NavLink to="/login">
-                    Login
-                </NavLink>
-            </div>
+            : <Container fluid="sm">
+                <Row style={{height: "5rem"}} />
+
+                <Row >
+                    <Card style={cardStyle} >
+                        <Card.Header><Logo/></Card.Header>
+                        <Card.Body>
+                            <Form onSubmit={this.submitHandler}>
+                                <Form.Group>
+                                    <FormControl 
+                                        type="text"
+                                        name="username"
+                                        placeholder="username"
+                                        value={username}
+                                        onChange={this.changeHandler}
+                                        size="sm"
+                                    />
+                                </Form.Group>
+
+                                <Form.Group>
+                                    <FormControl 
+                                        type="password"
+                                        name="password"
+                                        placeholder="password"
+                                        value={password}
+                                        onChange={this.changeHandler}
+                                        size="sm"
+                                    />
+                                </Form.Group>
+                                <Button variant="primary" type="submit" size="sm" block>
+                                    Sign Up
+                                </Button>
+                                <Form.Text className="text-muted">
+                                    By signing up, you agree to buy me lunch.
+                                </Form.Text>
+                            </Form>
+                            {this.errorMessages()}
+                        </Card.Body>
+                    </Card>
+                </Row>
+
+                <Row>
+                    <Card style={cardStyle}>
+                        <Card.Body style={{padding: "7px"}}>
+                            Have an account? <NavLink to="/login">Log in</NavLink>
+                        </Card.Body>
+                    </Card>
+                </Row>
+            </Container>
         ) 
     }
 
