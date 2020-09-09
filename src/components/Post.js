@@ -7,18 +7,19 @@ import AddComment from './AddComment';
 import VizSensor from 'react-visibility-sensor';
 import UserLink from './UserLink';
 import { headers } from '../helpers/Fetcher'
+import { CompAge } from './CompAge';
 
 
 
 const Post = ({post, view}) => {
     let { is_young, viewed, is_own_post } = view
-    let { text, img, user, id, comments} = post
+    let { text, img, user, id, comments, updated_at} = post
 
     const [isViewed, setViewed] = useState(viewed)
     
     let imgSrc = () => img ? img : "https://placeholder.pics/svg/600/DEDEDE/555555/no%20image"
 
-    let userHeader = () => !post.user ? null : <Card.Header><UserLink user={user}/></Card.Header>
+    let userHeader = () => !post.user ? null : <Card.Header><UserLink user={user}/><CompAge date={updated_at}/></Card.Header>
     
     let handleViewChange = (isVisible) => {
         if (!isViewed && !is_own_post && is_young && isVisible) {

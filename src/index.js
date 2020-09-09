@@ -10,6 +10,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter } from 'react-router-dom';
+import JavascriptTimeAgo from 'javascript-time-ago'
+ 
+import en from 'javascript-time-ago/locale/en'
+JavascriptTimeAgo.addLocale(en)
 
 const store = createStore(rootReducer, applyMiddleware(thunk))
 store.dispatch(register())

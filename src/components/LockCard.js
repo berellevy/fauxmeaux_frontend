@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 import { Card } from 'react-bootstrap'
 import pluralize from 'pluralize'
 import { unlockView } from '../redux/actions';
+import UserLink from './UserLink';
+import { CompAge } from './CompAge';
 
 const LockCard = ({ metrics, unlockView, showAd }) => {
     
@@ -12,11 +14,11 @@ const LockCard = ({ metrics, unlockView, showAd }) => {
         unlockView(view_id)
     }
 
-    let { comments, views, user } = metrics
+    let { comments, views, user, post_date } = metrics
     return (
         <span>
             <Card.Header>
-                {user.username}
+                <UserLink user={user}/><CompAge date={post_date} />
             </Card.Header>
             <Card.Img src="http://placeholder.pics/svg/550/DEDEDE/555555/Unlock" onClick={clickHandler} />
                 {!comments ? null : <Card.Text>{pluralize("comment", comments, true)}</Card.Text> }

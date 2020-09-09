@@ -11,7 +11,6 @@ const rowStyle = {
 }
 
 const View = ({view}) => {
-    
     const display = () => {
         switch (view.locked) {
             case "locked": 
