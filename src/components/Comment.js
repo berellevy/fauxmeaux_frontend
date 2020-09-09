@@ -5,7 +5,6 @@ import { CompAge } from './CompAge';
 
 
 const Comment = ({comment}) => {
-    console.log(comment);
     let { user, text, updated_at } = comment
     return (
         <Row>

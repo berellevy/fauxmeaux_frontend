@@ -1,6 +1,5 @@
 import React from 'react'
-import { Row, Col, Image, Button } from 'react-bootstrap'
-import defaultImg from '../helpers/defaultImg'
+import { Row, Col, Button } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import ProfileFeed from '../containers/ProfileFeed'
 import { base_url, getFollows } from '../redux/actions'
@@ -9,6 +8,8 @@ import { compose } from 'redux'
 import { useEffect } from 'react'
 import { useState } from 'react'
 import { fetcher } from '../helpers/Fetcher'
+import ProfileAvatarWithEdit from './ProfileAvatarWithEdit'
+import ProfileAvatar from './ProfileAvatar'
 
 const postsContainerStyle = {
     marginTop: "3em",
@@ -51,7 +52,9 @@ const Profile = (props) => {
         <>
             <Row id="user-headers" style={{marginTop: "3em"}}>
                 <Col sm={4}>
-                    <Image src={defaultImg(user.avatar)} fluid roundedCircle/>
+                    {user.is_current_user
+                    ? <ProfileAvatarWithEdit user={user} setUser={setUser} />
+                    : <ProfileAvatar user={user} />}
                 </Col>
                 <Col sm={1}/>
                 <Col sm={7}>

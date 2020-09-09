@@ -1,7 +1,7 @@
 import React from 'react'
 import { Switch, Route, Redirect } from 'react-router-dom'
 import Feed from '../containers/Feed'
-import NavBar from './NavBar'
+import NavBar from './Navbar'
 import { Container } from 'react-bootstrap'
 import AddPost from './AddPost'
 import SinglePostPage from '../containers/SinglePostPage'
@@ -18,7 +18,7 @@ function ProtectedApp(props) {
         ? <Redirect to="/login" />
         : <Container fluid="sm" >
 
-            <NavBar />
+            <NavBar user={props.user} />
 
             <Switch>
                 <Route path="/posts/:id" component={SinglePostPage}/>

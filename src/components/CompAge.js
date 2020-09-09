@@ -8,7 +8,7 @@ const style = {
 
 export const CompAge = ({date}) => {
     return (
-        <span class="font-weight-light" style={style}>
+        <span className="font-weight-light" style={style}>
             <ReactTimeAgo date={date}/>
         </span>
     )

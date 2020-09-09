@@ -23,7 +23,7 @@ const Feed = ({views, fetchPosts, fetchPostsPage}) => {
         <Row>
             <Col sm={3}/>
             <Col>
-                {views.map((view) => <View view={view} />)}
+                {views.map((view, i) => <View key={i} view={view} />)}
             </Col>
             <Col sm={3} />
         </Row>

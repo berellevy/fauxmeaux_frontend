@@ -22,9 +22,7 @@ class AddPost extends Component {
 
 
 
-    imgPreview = () => {
-        return this.state.imgPreviewSrc || "https://placeholder.pics/svg/500/DEDEDE/555555/add%20an%20image"
-    }
+    imgPreview = () => this.state.imgPreviewSrc || "https://placeholder.pics/svg/500/DEDEDE/555555/add%20an%20image"
 
     imgUrlChangeHandler = (e) => {
         let { value } = e.target

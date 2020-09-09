@@ -44,7 +44,7 @@ const  NavBar = ({user}) => {
           
             <Button variant="link">
             <NavLink to={"/" + user.username} >
-                <ProfileIcon/>
+                <ProfileIcon user={user}/>
             </NavLink>
             </Button>
 

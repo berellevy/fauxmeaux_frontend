@@ -6,7 +6,7 @@ const PostCommentsContainer = ({comments}) => {
 
         return (
             <div>
-                {comments.map( comment => <Comment comment={comment}/>)}
+                {comments.map( (comment, i) => <Comment key={i} comment={comment}/>)}
             </div>
         )
 }
