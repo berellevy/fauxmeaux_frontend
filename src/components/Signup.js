@@ -50,7 +50,7 @@ class Signup extends Component {
 
                 <Row >
                     <Card style={cardStyle} >
-                        <Card.Header><Logo/></Card.Header>
+                        <Card.Header><Logo large={true}/></Card.Header>
                         <Card.Body>
                             <Form onSubmit={this.submitHandler}>
                                 <Form.Group>

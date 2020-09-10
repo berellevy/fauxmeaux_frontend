@@ -37,7 +37,7 @@ class Login extends Component {
                 <Row style={{height: "5rem"}} />
                 <Row >
                     <Card style={cardStyle}>
-                        <Card.Header><Logo/></Card.Header>
+                        <Card.Header><Logo large={true}/></Card.Header>
                         <Card.Body>
                             <Form onSubmit={this.submitHandler}>
                                 <Form.Group>

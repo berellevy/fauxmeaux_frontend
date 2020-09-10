@@ -22,7 +22,6 @@ const Profile = (props) => {
     const { username } = props.match.params
 
     let [user, setUser] = useState({})
-
     useEffect(() => {
         fetcher(base_url + "/" + username)
         .then(data=> setUser(data.user))
