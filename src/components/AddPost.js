@@ -1,101 +1,74 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import { Col, Row, Card, Form, Button } from 'react-bootstrap'
-import { connect } from 'react-redux'
-import { submitPost, posts_url } from '../redux/actions'
-import { Redirect } from 'react-router-dom'
+import { posts_url } from '../redux/actions'
+import { withRouter } from 'react-router-dom'
 import { fetcher } from '../helpers/Fetcher'
 import imgPreviewSrc from '../helpers/imgPreviewSrc'
 
-class AddPost extends Component {
+const AddPost = ({history}) => {
 
-    state = {
-        imgUrl: "",
-        text: "",
-        errors: {
-            imgUrl: null,
-            text: null
-        },
-        newPostId: null
-    }
+    const [imgUrl, setImgUrl] = useState(null);
+    const [text, setText] = useState(null);
 
-    errorMessage = (fieldName) => { 
-        return (
-            !this.state.errors[fieldName]
-            ? null
-            : <Form.Text style={{color: "red"}}>
-                {this.state.errors[fieldName]}
-            </Form.Text>
-        )
-    }
+    // backend doesn't send error responses yet lol
 
-    changeHandler = (e) => {
-        let { name, value } = e.target
-        this.setState({ [name]: value})
-    }
+    // const [errors, setErrors] = useState({});
 
-    submitHandler = (e) => {
+    // const errorMessage = (fieldName) => { 
+    //     return (
+    //         errors[fieldName]
+    //         ? null
+    //         : <Form.Text style={{color: "red"}}>
+    //             {errors[fieldName]}
+    //         </Form.Text>
+    //     )
+    // }
+
+    const submitHandler = (e) => {
         e.preventDefault()
-        let { text, imgUrl } = this.state
-        let post = { text: text, img: imgUrl }
-        fetcher(posts_url, {method: "POST", body: post})
-        .then(view=> {
-            let { id } = view.post
-            this.setState({newPostId: id})
-        })
-
+        let post = { text, img: imgUrl }
+        fetcher( posts_url, {method: "POST", body: post} )
+        .then( view => history.push(`/posts/${view.post.id}`) )
     }
 
-    render() {
-        return (
-            this.state.newPostId
-            ? <Redirect to={"/posts/" + this.state.newPostId} />
-            : <Row style={{marginTop: "3em"}}>
-                <Col sm={3}></Col>
-                <Col>
-                    <Card>
-                        <Card.Header>
-                            Add a Post
-                        </Card.Header>
-                        <Form onSubmit={this.submitHandler}>
-                            <Form.Group controlId="formBasicEmail">
-                                <Card.Img src={imgPreviewSrc(this.state.imgUrl)}/>
-                                <Form.Control
-                                    name="imgUrl" 
-                                    type="url" 
-                                    placeholder="image url" 
-                                    value={this.state.imgUrl}
-                                    onChange={this.changeHandler}
-                                />
-                                {this.errorMessage("imgUrl")}
-                            </Form.Group>
-                            
-                            <Form.Label>Post Content</Form.Label>
+    return (
+        <Row style={{marginTop: "3em"}}>
+            <Col sm={3}></Col>
+            <Col>
+                <Card>
+                    <Card.Header>
+                        Add a Post
+                    </Card.Header>
+                    <Form onSubmit={submitHandler}>
+                        <Form.Group controlId="formBasicEmail">
+                            <Card.Img src={imgPreviewSrc(imgUrl)}/>
                             <Form.Control
-                                name="text" 
-                                type="textarea" 
-                                placeholder="O share with us you geniosity" 
-                                value={this.state.text}
-                                onChange={this.changeHandler}
+                                type="url" 
+                                placeholder="image url" 
+                                value={imgUrl}
+                                onChange={(e)=>setImgUrl(e.target.value)}
                             />
-                            {this.errorMessage("text")}
-                            <Button variant="light" type="submit">
-                                Submit
-                            </Button>
-                        </Form>
-                    </Card>
-                </Col>
-                <Col sm={3}></Col>
-            </Row>
-        )
-    }
+                            {/* {errorMessage("imgUrl")} */}
+                        </Form.Group>
+                        
+                        <Form.Label>Post Content</Form.Label>
+                        <Form.Control
+                            name="text" 
+                            type="textArea" 
+                            placeholder="O share with us you geniosity" 
+                            value={text}
+                            onChange={(e)=>setText(e.target.value)}
+                        />
+                        {/* {errorMessage("text")} */}
+                        <Button variant="light" type="submit">
+                            Submit
+                        </Button>
+                    </Form>
+                </Card>
+            </Col>
+            <Col sm={3}></Col>
+        </Row>
+    )
 }
 
-const mapStateToProps = (state) => {
-    return {user: state.user}
-}
-
-const mapDispatchToProps = (dispatch) => {
-    return { submitPost: (post) => dispatch(submitPost(post)) }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(AddPost)
+export default withRouter(AddPost)
