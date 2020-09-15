@@ -1,37 +1,21 @@
 import React, { Component } from 'react'
 import { Col, Row, Card, Form, Button } from 'react-bootstrap'
-import validURL from '../helpers/validUrl'
 import { connect } from 'react-redux'
 import { submitPost, posts_url } from '../redux/actions'
 import { Redirect } from 'react-router-dom'
 import { fetcher } from '../helpers/Fetcher'
-
+import imgPreviewSrc from '../helpers/imgPreviewSrc'
 
 class AddPost extends Component {
 
     state = {
         imgUrl: "",
         text: "",
-        imgPreviewSrc: null,
         errors: {
             imgUrl: null,
             text: null
         },
         newPostId: null
-    }
-
-
-
-    imgPreview = () => this.state.imgPreviewSrc || "https://placeholder.pics/svg/500/DEDEDE/555555/add%20an%20image"
-
-    imgUrlChangeHandler = (e) => {
-        let { value } = e.target
-        this.changeHandler(e)
-        if (validURL(value)) {
-            this.setState({ imgPreviewSrc: value})  
-        } else {
-            this.setState({ imgPreviewSrc: null})
-        }
     }
 
     errorMessage = (fieldName) => { 
@@ -42,7 +26,6 @@ class AddPost extends Component {
                 {this.state.errors[fieldName]}
             </Form.Text>
         )
-
     }
 
     changeHandler = (e) => {
@@ -75,13 +58,13 @@ class AddPost extends Component {
                         </Card.Header>
                         <Form onSubmit={this.submitHandler}>
                             <Form.Group controlId="formBasicEmail">
-                                <Card.Img src={this.imgPreview()}/>
+                                <Card.Img src={imgPreviewSrc(this.state.imgUrl)}/>
                                 <Form.Control
                                     name="imgUrl" 
                                     type="url" 
                                     placeholder="image url" 
                                     value={this.state.imgUrl}
-                                    onChange={this.imgUrlChangeHandler}
+                                    onChange={this.changeHandler}
                                 />
                                 {this.errorMessage("imgUrl")}
                             </Form.Group>
@@ -114,6 +97,5 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return { submitPost: (post) => dispatch(submitPost(post)) }
 }
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddPost)
