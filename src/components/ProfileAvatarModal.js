@@ -3,14 +3,13 @@ import { Modal, Form, Image, Button } from 'react-bootstrap'
 import { fetcher } from '../helpers/Fetcher';
 import { users_url } from '../redux/actions';
 import { connect } from 'react-redux';
-import validURL from '../helpers/validUrl';
 import { useEffect } from 'react';
+import imgPreviewSrc from '../helpers/imgPreviewSrc';
 
 
 const ProfileAvatarModal = ({dispatch, user, setUser, show, setShow}) => {
 
     const [imgUrl, setImgUrl] = useState("")
-    const [imagePreviewSrc, setImagePreviewSrc] = useState(null)
 
     useEffect(() => {
             if (show){
@@ -20,21 +19,11 @@ const ProfileAvatarModal = ({dispatch, user, setUser, show, setShow}) => {
 
     const handleOpen = () => {
         setImgUrl(user.avatar || "")
-        if (validURL(user.avatar)) {
-            setImagePreviewSrc(user.avatar)
-        } else {
-            setImagePreviewSrc(null)
-        }
     }
 
     const handleChange = (e) => {
         let { value } = e.target
         setImgUrl(value)
-        if (validURL(value)) {
-            setImagePreviewSrc(value)
-        } else {
-            setImagePreviewSrc(null)
-        }
     }
 
     const handleSave = () => {
@@ -50,10 +39,7 @@ const ProfileAvatarModal = ({dispatch, user, setUser, show, setShow}) => {
     const handleClose = () => {
         setShow(false)
         setImgUrl("")
-        setImagePreviewSrc("")
     }
-
-    const imgPreview = () => imagePreviewSrc || "https://placeholder.pics/svg/300/DEDEDE/555555/add%20an%20image" 
 
     return (
         <Modal show={show} onHide={handleClose} >
@@ -64,7 +50,7 @@ const ProfileAvatarModal = ({dispatch, user, setUser, show, setShow}) => {
                 <Modal.Body>
                     <Form>
                         <Form.Group>
-                            <Image src={imgPreview()} fluid/>
+                            <Image src={imgPreviewSrc(imgUrl)} fluid/>
                             <Form.Control
                                     type="url" 
                                     placeholder="image url" 
