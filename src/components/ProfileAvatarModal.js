@@ -1,14 +1,33 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Modal, Form, Image, Button } from 'react-bootstrap'
 import { fetcher } from '../helpers/Fetcher';
 import { users_url } from '../redux/actions';
 import { connect } from 'react-redux';
 import validURL from '../helpers/validUrl';
+import { useEffect } from 'react';
 
 
-const ProfileAvatarModal = ({dispatch, user, setUser, show, setShow, imagePreviewSrc, setImagePreviewSrc, imgUrl, setImgUrl}) => {
+const ProfileAvatarModal = ({dispatch, user, setUser, show, setShow}) => {
 
-    const changeHandler = (e) => {
+    const [imgUrl, setImgUrl] = useState("")
+    const [imagePreviewSrc, setImagePreviewSrc] = useState(null)
+
+    useEffect(() => {
+            if (show){
+                handleOpen()
+            }
+        }, [show])
+
+    const handleOpen = () => {
+        setImgUrl(user.avatar || "")
+        if (validURL(user.avatar)) {
+            setImagePreviewSrc(user.avatar)
+        } else {
+            setImagePreviewSrc(null)
+        }
+    }
+
+    const handleChange = (e) => {
         let { value } = e.target
         setImgUrl(value)
         if (validURL(value)) {
@@ -50,7 +69,7 @@ const ProfileAvatarModal = ({dispatch, user, setUser, show, setShow, imagePrevie
                                     type="url" 
                                     placeholder="image url" 
                                     value={imgUrl}
-                                    onChange={changeHandler}
+                                    onChange={handleChange}
                                 />
                         </Form.Group>
                     </Form>
