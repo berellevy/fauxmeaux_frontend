@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 import defaultImg from '../helpers/defaultImg'
-import { Image, Modal, Button, Form } from 'react-bootstrap'
+import { Image } from 'react-bootstrap'
 import validURL from '../helpers/validUrl'
 import "../AvatarModal.scss"
 import { fetcher } from '../helpers/Fetcher'
 import { users_url } from '../redux/actions'
 import { connect } from 'react-redux'
+import ProfileAvatarModal from './ProfileAvatarModal'
 
 
 const ProfileAvatarWithEdit = ({user, setUser, dispatch}) => {
@@ -48,8 +49,6 @@ const ProfileAvatarWithEdit = ({user, setUser, dispatch}) => {
             setImagePreviewSrc(null)
         }
     }
-
-    const imgPreview = () => imagePreviewSrc || "https://placeholder.pics/svg/300/DEDEDE/555555/add%20an%20image" 
     return (
         <>
             <Image
@@ -59,36 +58,15 @@ const ProfileAvatarWithEdit = ({user, setUser, dispatch}) => {
                 onClick={handleOpen}
 
             />
-
-            <Modal show={show} onHide={handleClose} >
-                <Modal.Header closeButton>
-                    <Modal.Title>Edit your profile picture</Modal.Title>
-                </Modal.Header>
-                
-                <Modal.Body>
-                    <Form>
-                        <Form.Group>
-                            <Image src={imgPreview()} fluid/>
-                            <Form.Control
-                                    type="url" 
-                                    placeholder="image url" 
-                                    value={imgUrl}
-                                    onChange={changeHandler}
-                                />
-                        </Form.Group>
-                    </Form>
-                </Modal.Body>
-
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
-                        Close
-                    </Button>
-
-                    <Button variant="primary" onClick={handleSave}>
-                        Save
-                    </Button>
-                </Modal.Footer>
-            </Modal>
+            <ProfileAvatarModal 
+                show={show}
+                handleClose={handleClose}
+                handleSave={handleSave}
+                imagePreviewSrc={imagePreviewSrc}
+                imgUrl={imgUrl}
+                changeHandler={changeHandler}
+            />
+            
         </> 
     )
 }

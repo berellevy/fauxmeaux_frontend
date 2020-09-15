@@ -1,5 +1,4 @@
 import React from 'react'
-import { Image } from "react-bootstrap"
 import ProfileIcon from "../icons/ProfileIcon"
 import { NavLink } from 'react-router-dom'
 
