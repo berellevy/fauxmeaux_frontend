@@ -9,7 +9,7 @@ import { connect } from 'react-redux'
 import ProfileAvatarModal from './ProfileAvatarModal'
 
 
-const ProfileAvatarWithEdit = ({user, setUser, dispatch}) => {
+const ProfileAvatarWithEdit = ({user, setUser}) => {
     const [show, setShow] = useState(false)
     const [imgUrl, setImgUrl] = useState("")
     const [imagePreviewSrc, setImagePreviewSrc] = useState(null)
@@ -23,32 +23,8 @@ const ProfileAvatarWithEdit = ({user, setUser, dispatch}) => {
         }
         setShow(true)
     }
+
     
-    const handleClose = () => {
-        setShow(false)
-        setImgUrl("")
-        setImagePreviewSrc("")
-    }
-
-    const handleSave = () => {
-        console.log(user.id);
-        fetcher(users_url + '/' + user.id, {method: "PATCH", body: {avatar: imgUrl}})
-        .then(data=>{
-            setUser(data.user)
-            dispatch({type: "REGISTER_SUCCESS", payload: data.user})
-        })
-        handleClose()
-    }
-
-    const changeHandler = (e) => {
-        let { value } = e.target
-        setImgUrl(value)
-        if (validURL(value)) {
-            setImagePreviewSrc(value)
-        } else {
-            setImagePreviewSrc(null)
-        }
-    }
     return (
         <>
             <Image
@@ -60,20 +36,20 @@ const ProfileAvatarWithEdit = ({user, setUser, dispatch}) => {
             />
             <ProfileAvatarModal 
                 show={show}
-                handleClose={handleClose}
-                handleSave={handleSave}
+                setShow={setShow}
+
                 imagePreviewSrc={imagePreviewSrc}
+                setImagePreviewSrc={setImagePreviewSrc}
+
                 imgUrl={imgUrl}
-                changeHandler={changeHandler}
+                setImgUrl={setImgUrl}
+                
+                user={user}
+                setUser={setUser}
             />
             
         </> 
     )
 }
 
-const mapDispatcToProps = (dispatch) => {
-    return {dispatch: dispatch}
-}
-
-
-export default connect(mapDispatcToProps)( ProfileAvatarWithEdit)
+export default ProfileAvatarWithEdit

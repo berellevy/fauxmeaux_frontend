@@ -1,10 +1,38 @@
 import React from 'react'
 import { Modal, Form, Image, Button } from 'react-bootstrap'
+import { fetcher } from '../helpers/Fetcher';
+import { users_url } from '../redux/actions';
+import { connect } from 'react-redux';
+import validURL from '../helpers/validUrl';
 
 
-const ProfileAvatarModal = ({show, handleClose, imagePreviewSrc, imgUrl, changeHandler, handleSave}) => {
+const ProfileAvatarModal = ({dispatch, user, setUser, show, setShow, imagePreviewSrc, setImagePreviewSrc, imgUrl, setImgUrl}) => {
 
+    const changeHandler = (e) => {
+        let { value } = e.target
+        setImgUrl(value)
+        if (validURL(value)) {
+            setImagePreviewSrc(value)
+        } else {
+            setImagePreviewSrc(null)
+        }
+    }
 
+    const handleSave = () => {
+        console.log(user.id);
+        fetcher(users_url + '/' + user.id, {method: "PATCH", body: {avatar: imgUrl}})
+        .then(data=>{
+            setUser(data.user)
+            dispatch({type: "REGISTER_SUCCESS", payload: data.user})
+        })
+        handleClose()
+    }
+
+    const handleClose = () => {
+        setShow(false)
+        setImgUrl("")
+        setImagePreviewSrc("")
+    }
 
     const imgPreview = () => imagePreviewSrc || "https://placeholder.pics/svg/300/DEDEDE/555555/add%20an%20image" 
 
@@ -41,5 +69,9 @@ const ProfileAvatarModal = ({show, handleClose, imagePreviewSrc, imgUrl, changeH
     )
 }
 
+const mapDispatcToProps = (dispatch) => {
+    return {dispatch: dispatch}
+}
 
-export default ProfileAvatarModal
+
+export default connect(mapDispatcToProps)( ProfileAvatarModal)
