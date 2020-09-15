@@ -23,7 +23,6 @@ const ProfileAvatarModal = ({dispatch, user, setUser, show, setShow}) => {
     }
 
     const handleSave = () => {
-        console.log(user.id);
         fetcher(users_url + '/' + user.id, {method: "PATCH", body: {avatar: imgUrl}})
         .then(data=>{
             setUser(data.user)
