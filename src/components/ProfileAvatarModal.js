@@ -11,15 +11,16 @@ const ProfileAvatarModal = ({dispatch, user, setUser, show, setShow}) => {
 
     const [imgUrl, setImgUrl] = useState("")
 
-    useEffect(() => {
-            if (show) {
-                handleOpen()
-            }
-        }, [show])
+    useEffect(() => {if (show) {handleOpen()}}, [show])
 
     const handleOpen = () => setImgUrl(user.avatar || "")
 
     const handleChange = (e) => setImgUrl(e.target.value)
+
+    const handleClose = () => {
+        setShow(false)
+        setImgUrl("")
+    }
 
     const handleSave = () => {
         console.log(user.id);
@@ -29,11 +30,6 @@ const ProfileAvatarModal = ({dispatch, user, setUser, show, setShow}) => {
             dispatch({type: "REGISTER_SUCCESS", payload: data.user})
         })
         handleClose()
-    }
-
-    const handleClose = () => {
-        setShow(false)
-        setImgUrl("")
     }
 
     return (

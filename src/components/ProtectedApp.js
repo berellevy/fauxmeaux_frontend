@@ -11,8 +11,8 @@ import UserList from '../containers/UserList'
 
 
 
-function ProtectedApp(props) {
-    let {loggedIn} = props.user
+const ProtectedApp = (props) => {
+    const {loggedIn} = props.user
     return (
         !loggedIn
         ? <Redirect to="/login" />
