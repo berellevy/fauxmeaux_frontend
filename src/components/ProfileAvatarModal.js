@@ -12,19 +12,14 @@ const ProfileAvatarModal = ({dispatch, user, setUser, show, setShow}) => {
     const [imgUrl, setImgUrl] = useState("")
 
     useEffect(() => {
-            if (show){
+            if (show) {
                 handleOpen()
             }
         }, [show])
 
-    const handleOpen = () => {
-        setImgUrl(user.avatar || "")
-    }
+    const handleOpen = () => setImgUrl(user.avatar || "")
 
-    const handleChange = (e) => {
-        let { value } = e.target
-        setImgUrl(value)
-    }
+    const handleChange = (e) => setImgUrl(e.target.value)
 
     const handleSave = () => {
         console.log(user.id);

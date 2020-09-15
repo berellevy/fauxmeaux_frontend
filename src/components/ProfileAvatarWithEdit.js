@@ -22,7 +22,6 @@ const ProfileAvatarWithEdit = ({user, setUser}) => {
             <ProfileAvatarModal 
                 show={show}
                 setShow={setShow}
-
                 user={user}
                 setUser={setUser}
             />
