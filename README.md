@@ -5,7 +5,7 @@ Backend is [here](https://github.com/berellevy/FauxMeaux-backend)
 
 [Short Demo with differentiators](https://youtu.be/pA0NRgoMUy0)
 
-[Long demo with full functionality](https://youtu.be/a7_5xcMpueQ)
+[Long demo with full functionality](https://youtu.be/W_5R7iMvfX0)
 
 Functionality:
 
