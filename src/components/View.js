@@ -11,29 +11,6 @@ const rowStyle = {
 }
 
 const View = ({view}) => {
-    const display = () => {
-        switch (view.locked) {
-            case "locked": 
-                return<LockCard
-                key={1} 
-                metrics={view.metrics}
-                />
-            case "ad":
-                return <AdCard
-                    key={2} 
-                    view_id={view.id} 
-                    ad={view.ad}
-                />
-            case "unlocked":
-                return <Post
-                    key={3} 
-                    post={view.post} 
-                    view={view}
-                />
-            default:
-                return null
-        }
-    }
 
     return (
         <Row style={rowStyle}>
@@ -44,7 +21,19 @@ const View = ({view}) => {
                         transitionEnterTimeout={700}
                         transitionLeaveTimeout={700}
                     >
-                        {display()}
+                        {
+                            view.ad_view
+                                ? <AdCard
+                                    key={2} 
+                                    view_id={view.id} 
+                                    ad={view.ad}
+                                />
+                                : <Post
+                                    key={3} 
+                                    post={view.post} 
+                                    view={view}
+                                />
+                        }
                     </ReactCSSTransitionReplace>
                 </Card>
             </Col>
