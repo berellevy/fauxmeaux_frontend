@@ -8,6 +8,7 @@ export const users_url = base_url + "/users"
 const profile_url = base_url + "/profile"
 const comments_url = base_url + "/comments"
 const user_posts_url = (username, page_num) => base_url + "/" + username + "/posts/" + page_num
+const backload_post_url = (view_id) => `${base_url}/backload_post/${view_id}`
 export const views_url = base_url + "/views"
 const search_url = base_url + "/search"
 
@@ -127,6 +128,21 @@ export const showPostBackend = (view_id) => {
         fetcher(views_url + "/" + view_id, {method: "PATCH", body: {locked: "ad"}})
     }
 }
+
+const addPostToView = (post_view) => {
+    return { type: "ADD_POST_TO_VIEW", payload: post_view}
+}
+
+export const getSinglePost = (view_id) => {
+    return (dispatch) => {
+        fetcher(backload_post_url(view_id))
+        .then(data=> {
+            dispatch(addPostToView(data))
+        })
+    }
+}
+
+
 
 export const logout = () => {
     return {type: "RESET_APP"}

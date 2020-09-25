@@ -31,6 +31,14 @@ const postsReducer = ( currentState = defaultState.posts, action ) => {
             let updatedView2 = [...currentState].find( view => view.id === payload )
             updatedView2.locked = "unlocked"
             return currentState.map( view => view.id === payload ? updatedView2 : view )
+        case "ADD_POST_TO_VIEW":
+            const add_it = () => {
+                const newState = [...currentState]
+                const newView = newState.find(view => view.id === payload.id)
+                Object.assign(newView, payload)
+                return newState
+            }
+            return add_it()
         default:
             return currentState
     }

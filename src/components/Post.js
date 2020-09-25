@@ -12,7 +12,6 @@ import { CompAge } from './CompAge';
 
 
 const Post = ({post, view}) => {
-    console.log(view);
     let { is_young, viewed, is_own_post } = view
     let { text, img, user, id, comments, updated_at} = post
 
