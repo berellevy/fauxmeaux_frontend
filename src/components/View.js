@@ -1,7 +1,6 @@
 import React from 'react'
 import { Row, Col, Card } from 'react-bootstrap'
 import Post from './Post'
-import LockCard from './LockCard'
 import AdCard from './AdCard'
 import '../View.scss'
 import ReactCSSTransitionReplace from 'react-css-transition-replace';
@@ -11,7 +10,6 @@ const rowStyle = {
 }
 
 const View = ({view}) => {
-
     return (
         <Row style={rowStyle}>
             <Col>

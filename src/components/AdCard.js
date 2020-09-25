@@ -6,8 +6,8 @@ import { fetcher } from '../helpers/Fetcher'
 
 const AdCard = ({ad, view_id, showPost}) => {
     const clickHandler = () => {
+        fetcher(views_url + "/" + view_id, { method: "PATCH", body: {ad_view: false} })
         showPost(view_id)
-        fetcher(views_url + "/" + view_id, { method: "PATCH", body: {locked: "unlocked"} })
     }
 
     return (
