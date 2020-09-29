@@ -21,8 +21,7 @@ const LockCard = ({ metrics, unlockView, showAd }) => {
                 <UserLink user={user}/><CompAge date={post_date} />
             </Card.Header>
             <Card.Img src="http://placeholder.pics/svg/550/DEDEDE/555555/Unlock" onClick={clickHandler} />
-                {!comments ? null : <Card.Text>{pluralize("comment", comments, true)}</Card.Text> }
-                {!views ? null : <Card.Text>{pluralize("view", views, true)}</Card.Text> }
+                
         </span>  
         
     ) 

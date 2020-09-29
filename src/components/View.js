@@ -23,8 +23,7 @@ const View = ({view}) => {
                             view.ad_view
                                 ? <AdCard
                                     key={2} 
-                                    view_id={view.id} 
-                                    ad={view.ad}
+                                    view={view}
                                 />
                                 : <Post
                                     key={3} 
