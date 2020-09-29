@@ -1,7 +1,7 @@
 import React from 'react'
 import { Card, ListGroupItem } from 'react-bootstrap'
 import { connect } from 'react-redux'
-import { getSinglePost, views_url } from '../redux/actions'
+import { getSinglePost, showPostFrontend, views_url } from '../redux/actions'
 import { fetcher } from '../helpers/Fetcher'
 import VizSensor from 'react-visibility-sensor';
 
@@ -35,7 +35,7 @@ const AdCard = ({ad, view_id, showPost, getSinglePost}) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        showPost: (view_id) => dispatch({type: "SHOW_POST", payload: view_id}),
+        showPost: (view_id) => dispatch(showPostFrontend(view_id)),
         getSinglePost: (view_id) => dispatch(getSinglePost(view_id))
     }
 }

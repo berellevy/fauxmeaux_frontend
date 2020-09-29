@@ -123,6 +123,8 @@ export const unlockView = (view_id) => {
     }
 }
 
+export const showPostFrontend = (view_id) => ({type: "SHOW_POST", payload: view_id})
+
 export const showPostBackend = (view_id) => {
     return (dispatch) => {
         fetcher(views_url + "/" + view_id, {method: "PATCH", body: {locked: "ad"}})
