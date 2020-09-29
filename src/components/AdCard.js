@@ -21,11 +21,11 @@ const AdCard = ({ad, view_id, showPost, getSinglePost}) => {
         
         <VizSensor onChange={handleViewChange}>
             <span>
-                <Card.Header as="h4" >
+                <Card.Header as="h4" style={{backgroundColor: "lightgreen"}}>
                     Ad
                 </Card.Header>
                 <Card.Img src={ad.img} onClick={clickHandler}/>
-                <ListGroupItem>
+                <ListGroupItem style={{backgroundColor: "lightgreen"}}>
                     Visit <Card.Link href="www.logo.com">lego.com</Card.Link>
                 </ListGroupItem>
             </span> 
