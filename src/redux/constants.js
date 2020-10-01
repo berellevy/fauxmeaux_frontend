@@ -1,0 +1,21 @@
+// VIEWS
+export const UNLOCK_VIEW = 'UNLOCK_VIEW'
+export const ADD_POST_TO_VIEW = 'ADD_POST_TO_VIEW'
+export const SHOW_POST = 'SHOW_POST'
+export const ADD_VIEWS = 'ADD_VIEWS'
+export const ADD_ADDITIONAL_VIEWS = 'ADD_ADDITIONAL_VIEWS'
+export const SHOW_AD = 'SHOW_AD'
+
+// COMMENTS
+export const ADD_COMMENT = 'ADD_COMMENT'
+
+// USERS
+export const ADD_USERS = 'ADD_USERS'
+
+// AUTH
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
+export const LOGIN_FAILURE = 'LOGIN_FAILURE'
+export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS'
+export const SIGNUP_FAILURE = 'SIGNUP_FAILURE'
+export const REGISTER_SUCCESS = 'REGISTER_SUCCESS'
+export const RESET_APP = 'RESET_APP'
