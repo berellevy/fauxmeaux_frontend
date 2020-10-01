@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
-import { fetchUserPosts, fetchUserPostsPage } from '../redux/actions'
+import { fetchUserPosts } from '../redux/actions'
 import { Col, Row } from 'react-bootstrap'
 import View from '../components/View'
 import { useEffect } from 'react'
 import { useBottomScrollListener } from 'react-bottom-scroll-listener';
 
 
-const Profile = ({username, views, fetchUserPosts, fetchUserPostsPage}) => {
+const Profile = ({username, views, fetchUserPosts}) => {
     
     const [page, setPage] = useState(1)
 
@@ -16,9 +16,8 @@ const Profile = ({username, views, fetchUserPosts, fetchUserPostsPage}) => {
     }, [fetchUserPosts, username])
 
     useBottomScrollListener(() => {
-        fetchUserPostsPage(username, page)
+        fetchUserPosts(username, page)
         setPage(page + 1)
-
     })
     
     return (
@@ -38,8 +37,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        fetchUserPosts: (username) => dispatch(fetchUserPosts(username)),
-        fetchUserPostsPage: (username, page_num) => dispatch(fetchUserPostsPage(username, page_num))
+        fetchUserPosts: (username, page_num) => dispatch(fetchUserPosts(username, page_num))
     }
 }
 

@@ -27,7 +27,6 @@ const View = ({view}) => {
                                 />
                                 : <Post
                                     key={3} 
-                                    post={view.post} 
                                     view={view}
                                 />
                         }

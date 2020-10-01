@@ -15,52 +15,48 @@ const  NavBar = ({user}) => {
     return (
         <Navbar bg="light">
             <Col>
-            <Nav className="mr-auto">
-                <Navbar.Brand>
-                    <Logo />
-                </Navbar.Brand>
-            </Nav>
+                <Nav className="mr-auto">
+                    <Navbar.Brand>
+                        <Logo />
+                    </Navbar.Brand>
+                </Nav>
             </Col>
 
             <Col>
-            <Nav>
-                <NavSearch />
-            </Nav>
+                <Nav>
+                    <NavSearch />
+                </Nav>
             </Col>
 
             <Col align="right" >
+                <Button variant="link">
+                    <NavLink to="/">
+                        <HomeIcon/>
+                    </NavLink>
+                </Button>
 
-            <Button variant="link">
-            <NavLink to="/">
-                <HomeIcon/>
-            </NavLink>
-            </Button>
+                <Button variant="link">
+                    <NavLink to="/post">
+                        <CameraIcon/>
+                    </NavLink>
+                </Button>
+            
+                <Button variant="link">
+                    <NavLink to={"/" + user.username} >
+                        <ProfileIcon user={user}/>
+                    </NavLink>
+                </Button>
 
-            <Button variant="link">
-            <NavLink to="/post">
-                <CameraIcon/>
-            </NavLink>
-            </Button>
-          
-            <Button variant="link">
-            <NavLink to={"/" + user.username} >
-                <ProfileIcon user={user}/>
-            </NavLink>
-            </Button>
-
-            <Button variant="link">
-            <NavLink to="#">
-                <LogoutButton/>
-            </NavLink>
-            </Button>
+                <Button variant="link">
+                    <NavLink to="#">
+                        <LogoutButton/>
+                    </NavLink>
+                </Button>
             </Col>
-
         </Navbar>
     )
 }
 
-const mapStateToProps = (state) => {
-    return {user: state.user}
-}
+const mapStateToProps = state => ({user: state.user})
 
 export default connect(mapStateToProps)(NavBar)

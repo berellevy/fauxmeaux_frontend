@@ -1,16 +1,17 @@
 import React, { useState } from 'react'
 import { Modal, Form, Image, Button } from 'react-bootstrap'
 import { fetcher } from '../helpers/Fetcher';
-import { users_url } from '../redux/actions';
 import { connect } from 'react-redux';
 import { useEffect } from 'react';
 import imgPreviewSrc from '../helpers/imgPreviewSrc';
+import { users_url } from '../helpers/urls';
 
 
 const ProfileAvatarModal = ({dispatch, user, setUser, show, setShow}) => {
 
     const [imgUrl, setImgUrl] = useState("")
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => {if (show) {handleOpen()}}, [show])
 
     const handleOpen = () => setImgUrl(user.avatar || "")
@@ -22,13 +23,11 @@ const ProfileAvatarModal = ({dispatch, user, setUser, show, setShow}) => {
         setImgUrl("")
     }
 
-    const handleSave = () => {
+    const handleSave = async () => {
         console.log(user.id);
-        fetcher(users_url + '/' + user.id, {method: "PATCH", body: {avatar: imgUrl}})
-        .then(data=>{
-            setUser(data.user)
-            dispatch({type: "REGISTER_SUCCESS", payload: data.user})
-        })
+        const data = await fetcher(users_url(user.id), {method: "PATCH", body: {avatar: imgUrl}})
+        setUser(data.user)
+        dispatch({type: "REGISTER_SUCCESS", payload: data.user})
         handleClose()
     }
 

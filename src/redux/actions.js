@@ -1,133 +1,103 @@
 import { fetcher } from "../helpers/Fetcher"
+import { base_url, feed_url, user_posts_url, views_url, backload_post_url } from "../helpers/urls"
 
-export const base_url = "http://localhost:4000/api/v1"
-export const posts_url = base_url + "/posts"
-const feed_url = base_url + "/feed"
-const login_url = base_url + "/login"
-export const users_url = base_url + "/users"
-const profile_url = base_url + "/profile"
-const comments_url = base_url + "/comments"
-const user_posts_url = (username, page_num) => base_url + "/" + username + "/posts/" + page_num
-const backload_post_url = (view_id) => `${base_url}/backload_post/${view_id}`
-export const views_url = base_url + "/views"
-const search_url = base_url + "/search"
+// export const base_url = (post_fix = '') =>  `http://localhost:4000/api/v1/${post_fix}`
+// export const posts_url = (id = '' ) => base_url(`posts/${id}`)
+// const feed_url = (page_num = 0) => base_url(`feed/${page_num}`)
+// export const users_url = (id = '') => base_url(`users/${id}`)
+// const user_posts_url = (username, page_num = 0) => base_url(`${username}/posts/${page_num}`)
+// const backload_post_url = (view_id) => base_url(`backload_post/${view_id}`)
+// export const views_url = (view_id = '') => base_url(`views/${view_id}`)
 
 
-export const fetchPosts = () => {
-    return (dispatch) => {
-        fetcher(feed_url + "/0")
-            .then(data => {
-                dispatch({ type: "ADD_POSTS", payload: data })
-            })
+export const fetchPosts = (page_num = 0) => {
+    return async(dispatch) => {
+        const data = await fetcher(feed_url(page_num))
+        const type = !page_num ? 'ADD_POSTS' : 'ADD_ADDITIONAL_POSTS'
+        dispatch({ type: type, payload: data })
     }
 }
 
-export const fetchPostsPage = (page_num) => {
-    return (dispatch) => {
-        fetcher(feed_url + "/" + page_num)
-            .then(data => { dispatch({ type: "ADD_ADDITIONAL_POSTS", payload: data }) })
+export const fetchUserPosts = (username, page_num = 0) => {
+    return async(dispatch) => {
+        const data = await fetcher(user_posts_url(username, page_num))
+        const type = !page_num ? 'ADD_POSTS' : 'ADD_ADDITIONAL_POSTS'
+        dispatch({ type: type, payload: data })
     }
 }
-
-export const fetchUserPosts = (username) => {
-    return (dispatch) => {
-        fetcher(user_posts_url(username, 0))
-            .then(data => { dispatch({ type: "ADD_POSTS", payload: data }) })
-    }
-}
-
-export const fetchUserPostsPage = (username, page_num) => {
-    return (dispatch) => {
-        fetcher(user_posts_url(username, page_num))
-            .then(data => {
-                dispatch({ type: "ADD_ADDITIONAL_POSTS", payload: data })
-            })
-    }
-}
-
 
 export const login = (credentials) => {
-    return (dispatch) => {
-        fetcher(login_url, { method: "POST", body: credentials })
-            .then(data => {
-                if (data.ok) {
-                    localStorage.setItem("token", data.jwt)
-                    dispatch({ type: "LOGIN_SUCCESS", payload: data.user })
-                } else {
-                    dispatch({ type: "LOGIN_FAILURE" })
-                }
-            })
+    return async(dispatch) => {
+        const data = await fetcher(base_url('login'), { method: "POST", body: credentials })
+        if (data.ok) {
+            localStorage.setItem("token", data.jwt)
+            dispatch({ type: "LOGIN_SUCCESS", payload: data.user })
+        } else {
+            dispatch({ type: "LOGIN_FAILURE" })
+        }
     }
 }
 
 export const signup = (credentials) => {
-    return (dispatch) => {
-        fetcher(users_url, { method: "POST", body: credentials })
-            .then(data => {
-                if (data.ok) {
-                    localStorage.setItem("token", data.jwt)
-                    dispatch({ type: "SIGNUP_SUCCESS", payload: data.user })
-                } else {
-                    dispatch({ type: "SIGNUP_FAILURE", payload: data.errors })
-                }
-            })
-
+    return async(dispatch) => {
+        const data = await fetcher(base_url('users'), { method: "POST", body: credentials })
+        if (data.ok) {
+            localStorage.setItem("token", data.jwt)
+            dispatch({ type: "SIGNUP_SUCCESS", payload: data.user })
+        } else {
+            dispatch({ type: "SIGNUP_FAILURE", payload: data.errors })
+        }
     }
-
 }
 
 export const register = () => {
-    return (dispatch) => {
-        fetcher(profile_url)
-            .then(data => {
-                if (data.user) {
-                    dispatch({ type: "REGISTER_SUCCESS", payload: data.user })
-                }
-            })
+    return async(dispatch) => {
+        const data = await fetcher(base_url('profile'))
+        if (data.user) {
+            dispatch({ type: "REGISTER_SUCCESS", payload: data.user })
+        }
     }
 }
 
 export const submitPost = (post) => {
-    return (dispatch) => {
-        fetcher(posts_url, { method: "POST", body: post })
+    return async(dispatch) => {
+        fetcher(base_url('posts'), { method: "POST", body: post })
     }
 }
 
 export const submitComment = (comment) => {
-    return (dispatch) => {
-        fetcher(comments_url, { method: "POST", body: comment })
-            .then(data => {
-                dispatch({ type: "ADD_COMMENT", payload: data })
-            })
+    return async(dispatch) => {
+        const data = await fetcher(base_url('comments'), { method: "POST", body: comment })
+        dispatch({ type: "ADD_COMMENT", payload: data })
     }
 }
 
 export const submitSearch = (query) => {
     return async(dispatch) => {
-        const data = await fetcher(search_url, { method: "POST", body: query })
+        const data = await fetcher(base_url('search'), { method: "POST", body: query })
         dispatch({ type: "ADD_USERS", payload: data })
     }
 }
 
 export const getFollows = (username_and_type) => {
-    return (dispatch) => {
-        fetcher(base_url + "/" + username_and_type)
-            .then(data => { dispatch({ type: "ADD_USERS", payload: data }) })
+    return async(dispatch) => {
+        const data = await fetcher(base_url(username_and_type))
+        dispatch({ type: "ADD_USERS", payload: data })
     }
 }
 
 export const unlockView = (view_id) => {
-    return (dispatch) => {
-        fetcher(views_url + "/" + view_id, { method: "PATCH", body: { locked: "ad" } })
-            .then(data => { dispatch({ type: "UNLOCK_VIEW", payload: data }) })
+    return async(dispatch) => {
+        const data = await fetcher(views_url(view_id), { method: "PATCH", body: { locked: "ad" } })
+        dispatch({ type: "UNLOCK_VIEW", payload: data })
     }
 }
 
 export const showPostFrontend = (view_id) => ({ type: "SHOW_POST", payload: view_id })
 
 export const showPostBackend = (view_id) => {
-    return (dispatch) => {
-        fetcher(views_url + "/" + view_id, { method: "PATCH", body: { locked: "ad" } })
+    return async(dispatch) => {
+        await fetcher(views_url(view_id), { method: "PATCH", body: { locked: "ad" } })
     }
 }
 
@@ -136,15 +106,11 @@ const addPostToView = (post_view) => {
 }
 
 export const getSinglePost = (view_id) => {
-    return (dispatch) => {
-        fetcher(backload_post_url(view_id))
-            .then(data => {
-                dispatch(addPostToView(data))
-            })
+    return async(dispatch) => {
+        const data = await fetcher(backload_post_url(view_id))
+        dispatch(addPostToView(data))
     }
 }
-
-
 
 export const logout = () => {
     return { type: "RESET_APP" }

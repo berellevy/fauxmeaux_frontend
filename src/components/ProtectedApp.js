@@ -11,37 +11,37 @@ import UserList from '../containers/UserList'
 
 
 
-const ProtectedApp = (props) => {
-    const {loggedIn} = props.user
+const ProtectedApp = ({user}) => {
+    const {loggedIn} = user
     return (
         !loggedIn
-        ? <Redirect to="/login" />
-        : <Container fluid="sm" >
+            ? <Redirect to="/login" />
+            : <Container fluid="sm" >
 
-            <NavBar user={props.user} />
+                <NavBar user={user} />
 
-            <Switch>
-                <Route path="/posts/:id" component={SinglePostPage}/>
+                <Switch>
+                    <Route path="/posts/:id" component={SinglePostPage}/>
 
-                <Route path="/post">
-                    <AddPost />
-                </Route>
+                    <Route path="/post">
+                        <AddPost />
+                    </Route>
 
-                <Route path="/profile" >
-                    <Profile />
-                </Route>
+                    <Route path="/profile" >
+                        <Profile />
+                    </Route>
 
-                <Route path="/users">
-                    <UserList/>
-                </Route>
+                    <Route path="/users">
+                        <UserList/>
+                    </Route>
 
-                <Route path="/:username"component={Profile}/>
+                    <Route path="/:username" component={Profile}/>
 
-                <Route path="/">
-                    <Feed />
-                </Route>
+                    <Route path="/">
+                        <Feed />
+                    </Route>
 
-            </Switch>
+                </Switch>
             </Container>
     )
 }

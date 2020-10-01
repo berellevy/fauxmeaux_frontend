@@ -20,13 +20,12 @@ class Signup extends Component {
 
     errorMessages = () => {
         let errors = this.props.user.errors 
-        ? Object.entries(this.props.user.errors).map(fieldArr=> {
-            return fieldArr[1].map(message=> {
-                console.log(message);
-                return <Card.Body>{fieldArr[0]} {message}</Card.Body>
-        })
-        })
-        : null
+            ? Object.entries(this.props.user.errors).map(fieldArr=> {
+                return fieldArr[1].map(message=> {
+                    return <Card.Body>{fieldArr[0]} {message}</Card.Body>
+                })
+            })
+            : null
         return errors
     }
 

@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from 'react'
-import { posts_url } from '../redux/actions'
 import View from '../components/View'
 import { Col, Row } from 'react-bootstrap'
 import { fetcher } from '../helpers/Fetcher'
+import { posts_url } from '../helpers/urls'
 
 const SinglePostPage = ({ match }) => {
 
     const [view, setView] = useState(null)
     
     useEffect(() => {
-        fetcher(posts_url + "/" + match.params.id)
-        .then(data => setView(data))
+        (async () => {
+            const data = await fetcher(posts_url(match.params.id))
+            setView(data)
+        })()
     },[match.params.id])
         
     return (

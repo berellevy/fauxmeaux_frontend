@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { Col, Row, Card, Form, Button } from 'react-bootstrap'
-import { posts_url } from '../redux/actions'
 import { withRouter } from 'react-router-dom'
 import { fetcher } from '../helpers/Fetcher'
 import imgPreviewSrc from '../helpers/imgPreviewSrc'
+import { posts_url } from '../helpers/urls'
 
 const AddPost = ({history}) => {
 
@@ -27,7 +27,7 @@ const AddPost = ({history}) => {
     const submitHandler = (e) => {
         e.preventDefault()
         let post = { text, img: imgUrl }
-        fetcher( posts_url, {method: "POST", body: post} )
+        fetcher( posts_url(), {method: "POST", body: post} )
         .then( view => history.push(`/posts/${view.post.id}`) )
     }
 
