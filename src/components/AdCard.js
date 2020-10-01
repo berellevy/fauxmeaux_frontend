@@ -1,7 +1,8 @@
 import React from 'react'
 import { Card, ListGroupItem } from 'react-bootstrap'
 import { connect } from 'react-redux'
-import { getSinglePost, showPostFrontend } from '../redux/actions'
+import { getSinglePost } from '../redux/asyncActions'
+import { showPostFrontend } from '../redux/actions'
 import { fetcher } from '../helpers/Fetcher'
 import pluralize from 'pluralize'
 import VizSensor from 'react-visibility-sensor';

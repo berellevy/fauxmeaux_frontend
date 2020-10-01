@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
-import { fetchPosts } from '../redux/actions'
+import { fetchPosts } from '../redux/asyncActions'
 import { Col, Row } from 'react-bootstrap'
 import View from '../components/View'
 import { useBottomScrollListener } from 'react-bottom-scroll-listener';

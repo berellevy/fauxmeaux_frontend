@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { NavLink, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { signup } from '../redux/actions'
+import { signup } from '../redux/asyncActions'
 import { Container, Card, Form, FormControl, Row, Button } from 'react-bootstrap'
 import Logo from '../icons/Logo'
 

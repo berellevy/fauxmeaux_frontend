@@ -5,7 +5,7 @@ import Login from './components/Login';
 import Signup from './components/Signup';
 import ProtectedApp from './components/ProtectedApp';
 import { connect } from 'react-redux';
-import { register } from './redux/actions'
+import { register } from './redux/asyncActions'
 
 class App extends Component {
   

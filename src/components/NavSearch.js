@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Form, FormControl, Button } from 'react-bootstrap'
 import SearchIcon from '../icons/SearchIcon'
-import { submitSearch } from '../redux/actions'
+import { submitSearch } from '../redux/asyncActions'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { compose } from 'redux'

@@ -6,11 +6,11 @@ import { logout } from '../redux/actions';
 
 
 const LogoutButton = ({logout}) => {
-    
     const handleLogout = () => {
         localStorage.removeItem("token")
         logout()
     }
+    
     return (
         <span onClick={handleLogout}>
             <LogoutIcon/>

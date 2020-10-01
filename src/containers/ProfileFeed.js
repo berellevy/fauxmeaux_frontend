@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
-import { fetchUserPosts } from '../redux/actions'
+import { fetchUserPosts } from '../redux/asyncActions'
 import { Col, Row } from 'react-bootstrap'
 import View from '../components/View'
 import { useEffect } from 'react'

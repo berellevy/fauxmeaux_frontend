@@ -1,6 +1,6 @@
 import React from 'react'
 import { Form, Button, Row, Col } from 'react-bootstrap'
-import { submitComment } from '../redux/actions'
+import { submitComment } from '../redux/asyncActions'
 import { connect } from 'react-redux'
 import { useState } from 'react'
 

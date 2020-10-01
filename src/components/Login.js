@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { login } from '../redux/actions'
+import { login } from '../redux/asyncActions'
 import { connect } from 'react-redux'
 import { Redirect, NavLink } from 'react-router-dom'
 import { Container, Row, Card, Form, FormControl, Button } from 'react-bootstrap'
