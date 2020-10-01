@@ -10,9 +10,11 @@ export const headers = () => {
     return headers
 }
 
-export const fetcher = (url, params={}) => {
-    const method =  params.method ? params.method : "GET"
-    const body = params.body ? JSON.stringify(params.body) : null 
-    return fetch(url, {method: method, headers: headers(), body: body})
-            .then(response=>response.json())
+export const fetcher = async(url, params = {}) => {
+    const method = params.method ? params.method : "GET"
+    const body = params.body ? JSON.stringify(params.body) : null
+    const res = await fetch(url, { method: method, headers: headers(), body: body })
+    const data = await res.json()
+    return data
+        // .then(response => response.json())
 }

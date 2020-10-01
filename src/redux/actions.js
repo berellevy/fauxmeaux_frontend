@@ -16,136 +16,136 @@ const search_url = base_url + "/search"
 export const fetchPosts = () => {
     return (dispatch) => {
         fetcher(feed_url + "/0")
-        .then(data=>{
-            dispatch({type: "ADD_POSTS", payload: data})
-        })
+            .then(data => {
+                dispatch({ type: "ADD_POSTS", payload: data })
+            })
     }
 }
 
 export const fetchPostsPage = (page_num) => {
     return (dispatch) => {
         fetcher(feed_url + "/" + page_num)
-        .then(data=>{dispatch({type: "ADD_ADDITIONAL_POSTS", payload: data})})
+            .then(data => { dispatch({ type: "ADD_ADDITIONAL_POSTS", payload: data }) })
     }
 }
 
 export const fetchUserPosts = (username) => {
     return (dispatch) => {
         fetcher(user_posts_url(username, 0))
-        .then(data=>{dispatch({type: "ADD_POSTS", payload: data})})
+            .then(data => { dispatch({ type: "ADD_POSTS", payload: data }) })
     }
 }
 
 export const fetchUserPostsPage = (username, page_num) => {
     return (dispatch) => {
         fetcher(user_posts_url(username, page_num))
-        .then(data=>{
-            dispatch({type: "ADD_ADDITIONAL_POSTS", payload: data})
-        })
+            .then(data => {
+                dispatch({ type: "ADD_ADDITIONAL_POSTS", payload: data })
+            })
     }
 }
 
 
 export const login = (credentials) => {
     return (dispatch) => {
-        fetcher(login_url, {method: "POST", body: credentials})
-        .then(data => {
-            if (data.ok) {
-                localStorage.setItem("token", data.jwt)
-                dispatch({type: "LOGIN_SUCCESS", payload: data.user})
-            } else {
-                dispatch({type: "LOGIN_FAILURE"})
-            }
-        })
+        fetcher(login_url, { method: "POST", body: credentials })
+            .then(data => {
+                if (data.ok) {
+                    localStorage.setItem("token", data.jwt)
+                    dispatch({ type: "LOGIN_SUCCESS", payload: data.user })
+                } else {
+                    dispatch({ type: "LOGIN_FAILURE" })
+                }
+            })
     }
 }
 
 export const signup = (credentials) => {
     return (dispatch) => {
-        fetcher(users_url, {method: "POST", body: credentials})
-        .then(data=> {
-            if (data.ok) {
-                localStorage.setItem("token", data.jwt)
-                dispatch({type: "SIGNUP_SUCCESS", payload: data.user})
-            } else {
-                dispatch({type: "SIGNUP_FAILURE", payload: data.errors})
-            }
-        })
+        fetcher(users_url, { method: "POST", body: credentials })
+            .then(data => {
+                if (data.ok) {
+                    localStorage.setItem("token", data.jwt)
+                    dispatch({ type: "SIGNUP_SUCCESS", payload: data.user })
+                } else {
+                    dispatch({ type: "SIGNUP_FAILURE", payload: data.errors })
+                }
+            })
 
     }
-    
+
 }
 
 export const register = () => {
-    return (dispatch) =>{
+    return (dispatch) => {
         fetcher(profile_url)
-        .then(data=> {
-            if (data.user) {
-                dispatch({type: "REGISTER_SUCCESS", payload: data.user})
-            }
-        })
+            .then(data => {
+                if (data.user) {
+                    dispatch({ type: "REGISTER_SUCCESS", payload: data.user })
+                }
+            })
     }
-} 
+}
 
 export const submitPost = (post) => {
     return (dispatch) => {
-        fetcher(posts_url, {method: "POST", body: post})
+        fetcher(posts_url, { method: "POST", body: post })
     }
 }
 
 export const submitComment = (comment) => {
     return (dispatch) => {
-        fetcher(comments_url, {method: "POST", body: comment})
-        .then(data => {
-            dispatch({type: "ADD_COMMENT", payload: data})
-        })
+        fetcher(comments_url, { method: "POST", body: comment })
+            .then(data => {
+                dispatch({ type: "ADD_COMMENT", payload: data })
+            })
     }
 }
 
 export const submitSearch = (query) => {
-    return (dispatch) => {
-        fetcher(search_url, {method: "POST", body: query})
-        .then(data=>dispatch({type: "ADD_USERS", payload: data}))
+    return async(dispatch) => {
+        const data = await fetcher(search_url, { method: "POST", body: query })
+        dispatch({ type: "ADD_USERS", payload: data })
     }
 }
 
 export const getFollows = (username_and_type) => {
     return (dispatch) => {
         fetcher(base_url + "/" + username_and_type)
-        .then(data=>{dispatch({type: "ADD_USERS", payload: data})})
+            .then(data => { dispatch({ type: "ADD_USERS", payload: data }) })
     }
 }
 
 export const unlockView = (view_id) => {
     return (dispatch) => {
-        fetcher(views_url + "/" + view_id, {method: "PATCH", body: {locked: "ad"}})
-        .then(data => {dispatch({type: "UNLOCK_VIEW", payload: data})})
+        fetcher(views_url + "/" + view_id, { method: "PATCH", body: { locked: "ad" } })
+            .then(data => { dispatch({ type: "UNLOCK_VIEW", payload: data }) })
     }
 }
 
-export const showPostFrontend = (view_id) => ({type: "SHOW_POST", payload: view_id})
+export const showPostFrontend = (view_id) => ({ type: "SHOW_POST", payload: view_id })
 
 export const showPostBackend = (view_id) => {
     return (dispatch) => {
-        fetcher(views_url + "/" + view_id, {method: "PATCH", body: {locked: "ad"}})
+        fetcher(views_url + "/" + view_id, { method: "PATCH", body: { locked: "ad" } })
     }
 }
 
 const addPostToView = (post_view) => {
-    return { type: "ADD_POST_TO_VIEW", payload: post_view}
+    return { type: "ADD_POST_TO_VIEW", payload: post_view }
 }
 
 export const getSinglePost = (view_id) => {
     return (dispatch) => {
         fetcher(backload_post_url(view_id))
-        .then(data=> {
-            dispatch(addPostToView(data))
-        })
+            .then(data => {
+                dispatch(addPostToView(data))
+            })
     }
 }
 
 
 
 export const logout = () => {
-    return {type: "RESET_APP"}
-} 
+    return { type: "RESET_APP" }
+}
