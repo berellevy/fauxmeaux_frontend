@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { useEffect } from 'react';
 import imgPreviewSrc from '../helpers/imgPreviewSrc';
 import { users_url } from '../helpers/urls';
+import { registerSuccess } from '../redux/actions';
 
 
 const ProfileAvatarModal = ({dispatch, user, setUser, show, setShow}) => {
@@ -27,7 +28,7 @@ const ProfileAvatarModal = ({dispatch, user, setUser, show, setShow}) => {
         console.log(user.id);
         const data = await fetcher(users_url(user.id), {method: "PATCH", body: {avatar: imgUrl}})
         setUser(data.user)
-        dispatch({type: "REGISTER_SUCCESS", payload: data.user})
+        dispatch(registerSuccess(data.user))
         handleClose()
     }
 
