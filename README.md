@@ -1,27 +1,19 @@
-# FauxMeaux Front End
+# FauxMeaux 2.0 Front End
 
 
 Backend is [here](https://github.com/berellevy/FauxMeaux-backend)
 
-[Short Demo with differentiators](https://youtu.be/pA0NRgoMUy0)
+[Short Demo with differentiators (FauxMeaux 2.0)](https://youtu.be/wn-k1jUmqWA)
 
-[Long demo with full functionality](https://youtu.be/W_5R7iMvfX0)
+[Long demo with full functionality (FauxMeaux 1.0)](https://youtu.be/W_5R7iMvfX0)
 
 Functionality:
 
-FauxMeaux is an app that is modeled on instagram but has a unique method for serving up ads.
+FauxMeaux 2.0 is an app that is modeled on instagram but ads are different.
 
 ## What's different
 
-Posts on FauxMeax are freely viewable for the first 24 hours.
-After 24 hours, the post get's locked. So when scrolling to a post that has been locked the user will see the user that posted it, a grey section where the post is, and metrics about the posts popularity at the bottom.  
-Unlocking the post is simple, just click anywhere on the locked post and it will change to contain an ad. Below the ad is a clickable link that will take you to the advertiser's website. However, clicking anwhere else on the ad will replace the ad with the post which will remain unlocked.
-
-The users primary motivation to unlock the post is the post metrics; every locked post shows how many views the post has and how many commnets the post has, thus causing FOMO for the user and motivating them to unlock the post.
-
-One more way a user may unlock an ad is by viewing a post within the first 24 hours after it was posted, before it get's locked. Once viewed, the post will remain unlocked for the user.
-
-This patent pending method for increased motivation for users to interact with ads has potential for vast improvement over the current paradigm of social media advertising. 
+While ads on instagram will appear *between* every 2 or 3 posts, on FauxMeaux 2.0 ads appear *on top of* every third post. To uncover a post the user needs only tap the ad. This is a vast improvement over the standard ad model. [Read why](https://medium.com/@berellevy/introducing-fauxmeaux-2-0-patent-pending-6b1a14584ab3).
 
 ## What's Similar
 
@@ -54,13 +46,20 @@ FauxMeaux has the following typical social media functionality;
 
 ## Stretch Goals
 
-### 1. FauxMeaux 2.0  
-    The feed will be very similar to your average social media feed; you will see posts with ads interspersed every second or third post.  
-    The difference is that each ad will COVER A POST. similar to to v1.0, you just need to click on the ad to reveal the post.
+### 1. FauxMeaux 2.0 - completed 
+<s>The feed will be very similar to your average social media feed; you will see posts with ads interspersed every second or third post.  
+The difference is that each ad will COVER A POST. similar to to v1.0, you just need to click on the ad to reveal the post.</s>
 
-### 2. Mobile app
+### 2. JS Refactors
+    - change fetch to await.
+    - refactor redux.
 
-### 3. Implement a serializer library
+### 3. Tests
+    - unit tests on the frontend.
+
+### 4. Mobile app
+
+### 5. Implement a serializer library
     I wrote most of the code to convert to json in the models but it's kind of cluttered so I want to move to a separate place.
 
 
