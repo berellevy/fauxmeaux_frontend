@@ -17,7 +17,6 @@ const ProtectedApp = ({user}) => {
         !loggedIn
             ? <Redirect to="/login" />
             : <Container fluid="sm" >
-
                 <NavBar user={user} />
 
                 <Switch>
@@ -40,14 +39,9 @@ const ProtectedApp = ({user}) => {
                     <Route path="/">
                         <Feed />
                     </Route>
-
                 </Switch>
             </Container>
     )
 }
 
-const mapStateToProps = (state) => {
-    return {user: state.user}
-}
-
-export default connect(mapStateToProps)(ProtectedApp)
+export default connect( ({user}) => ({user}) )(ProtectedApp)

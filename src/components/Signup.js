@@ -103,9 +103,4 @@ const mapDispatchToProps = (dispatch) => {
     return { submitHandler: (user) => dispatch(signup(user))}
 }
 
-const mapStateToProps = (state) => {
-    return { user: state.user }
-}
-
-
-export default connect(mapStateToProps, mapDispatchToProps)(Signup)
+export default connect( ({user}) => ({user}), mapDispatchToProps)(Signup)

@@ -7,7 +7,7 @@ import { useEffect } from 'react'
 import { useBottomScrollListener } from 'react-bottom-scroll-listener';
 
 
-const Profile = ({username, views, fetchUserPosts}) => {
+const Profile = ({username, posts, fetchUserPosts}) => {
     
     const [page, setPage] = useState(1)
 
@@ -24,15 +24,11 @@ const Profile = ({username, views, fetchUserPosts}) => {
         <Row>
             <Col sm={3}/>
             <Col sm={6}>
-                {views.map(view => <View view={view} />)}
+                {posts.map(view => <View view={view} />)}
             </Col>
             <Col sm={3}/>
         </Row>    
     )
-}
-
-const mapStateToProps = (state) => {
-    return {views: state.posts}
 }
 
 const mapDispatchToProps = (dispatch) => {
@@ -41,4 +37,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Profile)
+export default connect( ({posts}) => ({posts}), mapDispatchToProps)(Profile)

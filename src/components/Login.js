@@ -89,8 +89,4 @@ const mapDispatchToProps = (dispatch) => {
     return { submitHandler: (user) => dispatch(login(user))}
 }
 
-const mapStateToProps = (state) => {
-    return { user: state.user }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Login)
+export default connect( ({user}) => ({user}), mapDispatchToProps)(Login)

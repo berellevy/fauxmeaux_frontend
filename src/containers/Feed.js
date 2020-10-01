@@ -6,7 +6,7 @@ import View from '../components/View'
 import { useBottomScrollListener } from 'react-bottom-scroll-listener';
 
 
-const Feed = ({ views, fetchPosts, fetchPostsPage }) => {
+const Feed = ({ posts, fetchPosts, fetchPostsPage }) => {
         const [page, setPage] = useState(1)
 
         useEffect(() => {
@@ -22,21 +22,13 @@ const Feed = ({ views, fetchPosts, fetchPostsPage }) => {
             <Row>
                 <Col sm = { 3 }/> 
                 <Col> {
-                    views.map((view, i) => < View key = {i} view = { view }/>)} 
+                    posts.map((view, i) => < View key = {i} view = { view }/>)} 
                 </Col> 
                 <Col sm = { 3 }/> 
             </Row>
         )
     }
 
-    const mapStateToProps = (state) => {
-        return { views: state.posts }
-    }
+    const mapDispatchToProps = (dispatch) => ({ fetchPosts: (page_num) => dispatch(fetchPosts(page_num)) })
 
-    const mapDispatchToProps = (dispatch) => {
-        return {
-            fetchPosts: (page_num) => dispatch(fetchPosts(page_num))
-        }
-    }
-
-    export default connect(mapStateToProps, mapDispatchToProps)(Feed)
+    export default connect( ({posts}) => ({posts}), mapDispatchToProps)(Feed)

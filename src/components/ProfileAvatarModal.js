@@ -65,9 +65,4 @@ const ProfileAvatarModal = ({dispatch, user, setUser, show, setShow}) => {
     )
 }
 
-const mapDispatcToProps = (dispatch) => {
-    return {dispatch: dispatch}
-}
-
-
-export default connect(mapDispatcToProps)( ProfileAvatarModal)
+export default connect(null, (dispatch) => ({dispatch}) )(ProfileAvatarModal)

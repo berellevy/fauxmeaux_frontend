@@ -90,8 +90,4 @@ const mapDispatchToProps = (dispatch) => {
     return { getFollows: (username_and_type) => dispatch(getFollows(username_and_type))}
 }
 
-// export default compose(
-//     withRouter,
-//     connect(f=>f, mapDispatchToProps)
-// )(Profile)
 export default connect(null, mapDispatchToProps)(Profile)
